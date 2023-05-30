@@ -1,0 +1,18 @@
+digraph ast {
+node [shape=none];
+129089457 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089457</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+129089457 -> 129089456 [weight=2];
+129089457 -> 129089458 [weight=2];
+129089457 -> 129091075 [style=dotted,label=DataflowResolution];
+129089456 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089456</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 7750)</TD><TD border='0' cellpadding='5'>code</TD></TR></TABLE>>];
+129089459 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089459</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+129089459 -> 129089460 [weight=2];
+129091075 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>129091075</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>CannotReadDDFile</TD></TR></TABLE>>];
+129089458 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089458</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$allOK=1;</TD></TR></TABLE>>];
+129089461 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089461</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+129089461 -> 129089455 [weight=2];
+129089461 -> 129089459 [weight=2];
+129089460 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089460</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+129089460 -> 129089457 [weight=2];
+129089455 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>129089455</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

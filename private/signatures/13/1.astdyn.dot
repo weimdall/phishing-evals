@@ -1,0 +1,30 @@
+digraph ast {
+node [shape=none];
+1245815 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245815</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+1245815 -> 1245814 [weight=2];
+1245815 -> 1245820 [weight=2];
+1245815 -> 1245825 [style=dotted,label=DynamicResolution];
+1245814 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245814</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+1245813 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245813</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1245819 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245819</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1245819 -> 1245817 [weight=2];
+1245818 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245818</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1245818 -> 1245819 [weight=2];
+1245817 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245817</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PD9waHANCnNlc3Npb25fc3RhcnQoKTsNCg0Ka...</TD></TR></TABLE>>];
+1245816 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245816</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+1245823 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245823</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1245823 -> 1245813 [weight=2];
+1245823 -> 1245821 [weight=2];
+1245822 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245822</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1245822 -> 1245815 [weight=2];
+1245822 -> 1245826 [style=dotted,label=DynamicResolution];
+1245821 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245821</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1245821 -> 1245822 [weight=2];
+1245820 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245820</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+1245820 -> 1245816 [weight=2];
+1245820 -> 1245818 [weight=2];
+1245827 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245827</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+1245826 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245826</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;&lt;?php session_start();  if (isse...</TD></TR></TABLE>>];
+1245826 -> 1245827 [style=dotted,label=Parse];
+1245825 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1245825</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3c3f7068700d0a73657373696f6e5f7374617...</TD></TR></TABLE>>];
+}

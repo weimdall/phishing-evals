@@ -1,0 +1,16 @@
+digraph ast {
+node [shape=none];
+102825972 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102825972</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+102825973 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102825973</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 7792)</TD><TD border='0' cellpadding='5'>string</TD></TR></TABLE>>];
+102825974 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102825974</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+102825974 -> 102825975 [weight=2];
+102825975 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102825975</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+102825975 -> 102825973 [weight=2];
+102825975 -> 102826009 [style=dotted,label=DataflowResolution];
+102825976 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102825976</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[10, 11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+102825976 -> 102825972 [weight=2];
+102825976 -> 102825974 [weight=2];
+102826009 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102826009</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$obj = new </TD></TR></TABLE>>];
+102826009 -> 102826010 [style=dotted,label=Parse];
+102826010 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>102826010</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+}

@@ -1,0 +1,34 @@
+digraph ast {
+node [shape=none];
+2876291 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876291</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+2876291 -> 2876289 [weight=2];
+2876291 -> 2876308 [style=dotted,label=DynamicResolution];
+2876290 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876290</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+2876290 -> 2876291 [weight=2];
+2876289 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876289</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+2876289 -> 2876285 [weight=2];
+2876289 -> 2876287 [weight=2];
+2876288 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876288</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+2876288 -> 2876286 [weight=2];
+2876295 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876295</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+2876295 -> 2876283 [weight=2];
+2876295 -> 2876293 [weight=2];
+2876294 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876294</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+2876294 -> 2876292 [weight=2];
+2876294 -> 2876309 [style=dotted,label=DynamicResolution];
+2876293 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876293</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+2876293 -> 2876294 [weight=2];
+2876292 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876292</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>str_rot13</TD></TR></TABLE>>];
+2876292 -> 2876284 [weight=2];
+2876292 -> 2876290 [weight=2];
+2876283 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876283</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+2876287 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876287</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+2876287 -> 2876288 [weight=2];
+2876286 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876286</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Pz48P3JwdWIgIjwa3p5IGlyZWZ2YmE9XCIxL...</TD></TR></TABLE>>];
+2876285 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876285</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+2876284 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876284</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>str_rot13</TD></TR></TABLE>>];
+2876310 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876310</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+2876309 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876309</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3f3e3c3f6563686f20223c3f786d6c2076657...</TD></TR></TABLE>>];
+2876309 -> 2876310 [style=dotted,label=Parse];
+2876308 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>2876308</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3f3e3c3f7270756220223c3f6b7a792069726...</TD></TR></TABLE>>];
+}

@@ -1,0 +1,20 @@
+digraph ast {
+node [shape=none];
+769197768 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197768</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+769197768 -> 769197762 [weight=2];
+769197768 -> 769197766 [weight=2];
+769199617 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769199617</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+769199616 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769199616</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;$str</TD></TR></TABLE>>];
+769199616 -> 769199617 [style=dotted,label=Parse];
+769197763 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197763</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?</TD></TR></TABLE>>];
+769197762 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197762</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+769197765 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197765</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&gt;$str</TD></TR></TABLE>>];
+769197764 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197764</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+769197764 -> 769197763 [weight=2];
+769197764 -> 769197765 [weight=2];
+769197767 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197767</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+769197767 -> 769197764 [weight=2];
+769197767 -> 769199616 [style=dotted,label=DynamicResolution];
+769197766 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769197766</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+769197766 -> 769197767 [weight=2];
+}

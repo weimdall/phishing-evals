@@ -1,0 +1,26 @@
+digraph ast {
+node [shape=none];
+37078165 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078165</TD><TD border='0'><B>NamespaceName</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+37078164 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078164</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+37078164 -> 37078163 [weight=2];
+37078164 -> 37078169 [weight=2];
+37078164 -> 37078174 [style=dotted,label=DynamicResolution];
+37078167 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078167</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+37078167 -> 37078168 [weight=2];
+37078166 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078166</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>php:stdin</TD></TR></TABLE>>];
+37078163 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078163</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+37078162 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078162</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+37078172 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078172</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+37078172 -> 37078162 [weight=2];
+37078172 -> 37078170 [weight=2];
+37078174 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>37078174</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncUnknown</TD></TR></TABLE>>];
+37078169 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078169</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+37078169 -> 37078165 [weight=2];
+37078169 -> 37078167 [weight=2];
+37078168 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078168</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+37078168 -> 37078166 [weight=2];
+37078171 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078171</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+37078171 -> 37078164 [weight=2];
+37078170 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>37078170</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+37078170 -> 37078171 [weight=2];
+}

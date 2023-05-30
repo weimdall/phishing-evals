@@ -1,0 +1,22 @@
+digraph ast {
+node [shape=none];
+8402327 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402327</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+8402487 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>8402487</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+8402328 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402328</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>class $internalMockName extends $mock...</TD></TR></TABLE>>];
+8402329 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402329</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+8402329 -> 8402328 [weight=2];
+8402329 -> 8402331 [weight=2];
+8402329 -> 8402487 [style=dotted,label=DynamicResolution];
+8402330 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402330</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>public function __construct() {}</TD></TR></TABLE>>];
+8402331 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402331</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+8402331 -> 8402330 [weight=2];
+8402331 -> 8402332 [weight=2];
+8402332 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402332</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>}</TD></TR></TABLE>>];
+8402333 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402333</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+8402333 -> 8402334 [weight=2];
+8402334 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402334</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+8402334 -> 8402329 [weight=2];
+8402335 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>8402335</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+8402335 -> 8402327 [weight=2];
+8402335 -> 8402333 [weight=2];
+}

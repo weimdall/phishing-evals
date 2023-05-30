@@ -1,0 +1,22 @@
+digraph ast {
+node [shape=none];
+201207950 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207950</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+201207966 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>201207966</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+201207951 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207951</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 1820594)</TD><TD border='0' cellpadding='5'>def</TD></TR></TABLE>>];
+201207964 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207964</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Doctrine_Import_Builder</TD></TR></TABLE>>];
+201207965 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207965</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+201207962 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207962</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>builder</TD></TR></TABLE>>];
+201207963 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207963</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Doctrine_Import_Builder</TD></TR></TABLE>>];
+201207963 -> 201207964 [weight=2];
+201207963 -> 201207965 [weight=2];
+201207954 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207954</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+201207954 -> 201207950 [weight=2];
+201207954 -> 201207952 [weight=2];
+201207952 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207952</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+201207952 -> 201207953 [weight=2];
+201207953 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201207953</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+201207953 -> 201207951 [weight=2];
+201207953 -> 201207966 [style=dotted,label=DynamicResolution];
+201207953 -> 201207962 [style=dotted,label=DataflowResolution];
+201207953 -> 201207963 [style=dotted,label=DataflowResolution];
+}

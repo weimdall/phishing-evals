@@ -1,0 +1,32 @@
+digraph ast {
+node [shape=none];
+107917614 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917614</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+107917615 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917615</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+107917628 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917628</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;&lt;?php * Blackscorpion Obfuscator F...</TD></TR></TABLE>>];
+107917628 -> 107917629 [style=dotted,label=Parse];
+107917629 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917629</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+107917626 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917626</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PD9waHAKLyoKQmxhY2tzY29ycGlvbiBPYmZ1c...</TD></TR></TABLE>>];
+107917627 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917627</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3c3f7068700a2f2a0a426c61636b73636f727...</TD></TR></TABLE>>];
+107917624 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917624</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+107917624 -> 107917614 [weight=2];
+107917624 -> 107917622 [weight=2];
+107917622 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917622</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+107917622 -> 107917623 [weight=2];
+107917623 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917623</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+107917623 -> 107917616 [weight=2];
+107917623 -> 107917628 [style=dotted,label=DynamicResolution];
+107917620 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917620</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+107917620 -> 107917618 [weight=2];
+107917620 -> 107917626 [style=dotted,label=DataflowResolution];
+107917621 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917621</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+107917621 -> 107917617 [weight=2];
+107917621 -> 107917619 [weight=2];
+107917618 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917618</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 610387)</TD><TD border='0' cellpadding='5'>thanks</TD></TR></TABLE>>];
+107917619 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917619</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+107917619 -> 107917620 [weight=2];
+107917616 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917616</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+107917616 -> 107917615 [weight=2];
+107917616 -> 107917621 [weight=2];
+107917616 -> 107917627 [style=dotted,label=DynamicResolution];
+107917617 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>107917617</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+}

@@ -1,0 +1,32 @@
+digraph ast {
+node [shape=none];
+131052237 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>131052237</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+131052236 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052236</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>php</TD></TR></TABLE>>];
+131052235 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052235</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+131052235 -> 131052236 [weight=2];
+131052234 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052234</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'></TD></TR></TABLE>>];
+131052233 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052233</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+131052233 -> 131052234 [weight=2];
+131052232 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052232</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&lt;?php</TD></TR></TABLE>>];
+131052231 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052231</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+131052231 -> 131052232 [weight=2];
+131052230 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052230</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+131052230 -> 131052231 [weight=2];
+131052230 -> 131052233 [weight=2];
+131052230 -> 131052235 [weight=2];
+131052229 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052229</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>str_replace</TD></TR></TABLE>>];
+131052228 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052228</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>str_replace</TD></TR></TABLE>>];
+131052228 -> 131052229 [weight=2];
+131052228 -> 131052230 [weight=2];
+131052122 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052122</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+131052122 -> 131052118 [weight=2];
+131052122 -> 131052120 [weight=2];
+131052121 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052121</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+131052121 -> 131052119 [weight=2];
+131052121 -> 131052237 [style=dotted,label=DynamicResolution];
+131052121 -> 131052228 [style=dotted,label=DataflowResolution];
+131052120 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052120</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+131052120 -> 131052121 [weight=2];
+131052119 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052119</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 624106)</TD><TD border='0' cellpadding='5'>php</TD></TR></TABLE>>];
+131052118 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>131052118</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

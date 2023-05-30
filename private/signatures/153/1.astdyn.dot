@@ -1,0 +1,20 @@
+digraph ast {
+node [shape=none];
+138209404 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209404</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+138209404 -> 138209398 [weight=2];
+138209404 -> 138209402 [weight=2];
+138209400 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209400</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+138209400 -> 138209399 [weight=2];
+138209400 -> 138209401 [weight=2];
+138209401 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209401</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&gt;$str</TD></TR></TABLE>>];
+138209993 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209993</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;$str</TD></TR></TABLE>>];
+138209993 -> 138209994 [style=dotted,label=Parse];
+138209402 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209402</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+138209402 -> 138209403 [weight=2];
+138209994 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209994</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+138209403 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209403</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+138209403 -> 138209400 [weight=2];
+138209403 -> 138209993 [style=dotted,label=DynamicResolution];
+138209398 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209398</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+138209399 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>138209399</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?</TD></TR></TABLE>>];
+}

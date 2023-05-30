@@ -1,0 +1,24 @@
+digraph ast {
+node [shape=none];
+100765877 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765877</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>ob_get_contents</TD></TR></TABLE>>];
+100765876 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765876</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>ob_get_contents</TD></TR></TABLE>>];
+100765876 -> 100765877 [weight=2];
+100765876 -> 100765878 [weight=2];
+100765575 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765575</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+100765879 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>100765879</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+100765574 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765574</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+100765878 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765878</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+100765577 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765577</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 102)</TD><TD border='0' cellpadding='5'>text</TD></TR></TABLE>>];
+100765576 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765576</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+100765576 -> 100765575 [weight=2];
+100765576 -> 100765577 [weight=2];
+100765576 -> 100765879 [style=dotted,label=DynamicResolution];
+100765576 -> 100765876 [style=dotted,label=DataflowResolution];
+100765579 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765579</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+100765579 -> 100765576 [weight=2];
+100765578 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765578</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+100765578 -> 100765579 [weight=2];
+100765580 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>100765580</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+100765580 -> 100765574 [weight=2];
+100765580 -> 100765578 [weight=2];
+}

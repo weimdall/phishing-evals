@@ -1,0 +1,26 @@
+digraph ast {
+node [shape=none];
+769351131 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351131</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>;</TD></TR></TABLE>>];
+769351130 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351130</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+769351130 -> 769351129 [weight=2];
+769351130 -> 769351131 [weight=2];
+769351129 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351129</TD><TD border='0'><B>ArrayExpression</B></TD></TR></TABLE>>];
+769351129 -> 769351127 [weight=2];
+769351129 -> 769351128 [weight=2];
+769351128 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351128</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>callback_php</TD></TR></TABLE>>];
+769351134 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351134</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+769351134 -> 769351124 [weight=2];
+769351134 -> 769351132 [weight=2];
+769351133 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351133</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+769351133 -> 769351126 [weight=2];
+769351132 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351132</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+769351132 -> 769351133 [weight=2];
+769351127 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351127</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 20084)</TD><TD border='0' cellpadding='5'>col</TD></TR></TABLE>>];
+769351126 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351126</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+769351126 -> 769351125 [weight=2];
+769351126 -> 769351130 [weight=2];
+769351126 -> 769351750 [style=dotted,label=DynamicResolution];
+769351750 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>769351750</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+769351125 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351125</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$value = </TD></TR></TABLE>>];
+769351124 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>769351124</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

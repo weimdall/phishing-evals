@@ -1,0 +1,20 @@
+digraph ast {
+node [shape=none];
+201815735 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815735</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+201815735 -> 201815732 [weight=2];
+201815735 -> 201817053 [style=dotted,label=DynamicResolution];
+201815734 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815734</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+201815734 -> 201815735 [weight=2];
+201815733 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815733</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&gt;$str</TD></TR></TABLE>>];
+201815732 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815732</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+201815732 -> 201815731 [weight=2];
+201815732 -> 201815733 [weight=2];
+201815731 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815731</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?</TD></TR></TABLE>>];
+201815730 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815730</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+201817054 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201817054</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+201817053 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201817053</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;$str</TD></TR></TABLE>>];
+201817053 -> 201817054 [style=dotted,label=Parse];
+201815736 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>201815736</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+201815736 -> 201815730 [weight=2];
+201815736 -> 201815734 [weight=2];
+}

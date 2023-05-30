@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+1430998114 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998114</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1430998114 -> 1430998098 [weight=2];
+1430998114 -> 1430998112 [weight=2];
+1430998113 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998113</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1430998113 -> 1430998100 [weight=2];
+1430998112 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998112</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1430998112 -> 1430998113 [weight=2];
+1430998107 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998107</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1430998107 -> 1430998103 [weight=2];
+1430998106 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998106</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1430998106 -> 1430998102 [weight=2];
+1430998105 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998105</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1430998105 -> 1430998106 [weight=2];
+1430998105 -> 1430998107 [weight=2];
+1430998105 -> 1430998108 [weight=2];
+1430998104 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998104</TD><TD border='0'><B>IntegerLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>0</TD></TR></TABLE>>];
+1430999352 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>1430999352</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+1430998111 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998111</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>';</TD></TR></TABLE>>];
+1430998110 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998110</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+1430998110 -> 1430998109 [weight=2];
+1430998110 -> 1430998111 [weight=2];
+1430998109 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998109</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>fetch_template</TD></TR></TABLE>>];
+1430998109 -> 1430998101 [weight=2];
+1430998109 -> 1430998105 [weight=2];
+1430998108 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998108</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1430998108 -> 1430998104 [weight=2];
+1430998099 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998099</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$html = '</TD></TR></TABLE>>];
+1430998098 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998098</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1430998103 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998103</TD><TD border='0'><B>IntegerLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>0</TD></TR></TABLE>>];
+1430998102 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998102</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>lightbox</TD></TR></TABLE>>];
+1430998101 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998101</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>fetch_template</TD></TR></TABLE>>];
+1430998100 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1430998100</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+1430998100 -> 1430998099 [weight=2];
+1430998100 -> 1430998110 [weight=2];
+1430998100 -> 1430999352 [style=dotted,label=DynamicResolution];
+}

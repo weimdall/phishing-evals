@@ -1,0 +1,22 @@
+digraph ast {
+node [shape=none];
+605577208 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577208</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+605577208 -> 605577207 [weight=2];
+605577208 -> 605577211 [weight=2];
+605577208 -> 605577234 [style=dotted,label=DynamicResolution];
+605577209 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577209</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 5108691)</TD><TD border='0' cellpadding='5'>ws_plugin__s2member_o</TD></TR></TABLE>>];
+605577210 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577210</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>wp_settings_as</TD></TR></TABLE>>];
+605577211 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577211</TD><TD border='0'><B>ArrayExpression</B></TD></TR></TABLE>>];
+605577211 -> 605577209 [weight=2];
+605577211 -> 605577210 [weight=2];
+605577212 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577212</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+605577212 -> 605577213 [weight=2];
+605577213 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577213</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+605577213 -> 605577208 [weight=2];
+605577214 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577214</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+605577214 -> 605577206 [weight=2];
+605577214 -> 605577212 [weight=2];
+605577234 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>605577234</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+605577206 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577206</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+605577207 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>605577207</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+}

@@ -1,0 +1,30 @@
+digraph ast {
+node [shape=none];
+49947530 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947530</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+49947530 -> 49947531 [weight=2];
+49947563 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947563</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3c3f7068700d0a726571756972655f6f6e636...</TD></TR></TABLE>>];
+49947531 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947531</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+49947531 -> 49947529 [weight=2];
+49947528 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947528</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+49947529 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947529</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PD9waHANCnJlcXVpcmVfb25jZSAncmppMEhUc...</TD></TR></TABLE>>];
+49947534 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947534</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+49947534 -> 49947527 [weight=2];
+49947534 -> 49947564 [style=dotted,label=DynamicResolution];
+49947535 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947535</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+49947535 -> 49947525 [weight=2];
+49947535 -> 49947533 [weight=2];
+49947564 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947564</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;&lt;?php require_once 'rji0HTpLTHVHHu...</TD></TR></TABLE>>];
+49947564 -> 49947565 [style=dotted,label=Parse];
+49947532 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947532</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+49947532 -> 49947528 [weight=2];
+49947532 -> 49947530 [weight=2];
+49947565 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947565</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+49947533 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947533</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+49947533 -> 49947534 [weight=2];
+49947526 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947526</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+49947527 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947527</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+49947527 -> 49947526 [weight=2];
+49947527 -> 49947532 [weight=2];
+49947527 -> 49947563 [style=dotted,label=DynamicResolution];
+49947525 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49947525</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

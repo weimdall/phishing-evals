@@ -1,0 +1,20 @@
+digraph ast {
+node [shape=none];
+496933326 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933326</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+496933327 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933327</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 7340)</TD><TD border='0' cellpadding='5'>item</TD></TR></TABLE>>];
+496933516 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933516</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+496933516 -> 496933517 [weight=2];
+496933517 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933517</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+496933514 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933514</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+496933514 -> 496933515 [weight=2];
+496933514 -> 496933516 [weight=2];
+496933515 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933515</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+496933330 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933330</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+496933330 -> 496933326 [weight=2];
+496933330 -> 496933328 [weight=2];
+496933328 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933328</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+496933328 -> 496933329 [weight=2];
+496933329 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>496933329</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+496933329 -> 496933327 [weight=2];
+496933329 -> 496933514 [style=dotted,label=DataflowResolution];
+}

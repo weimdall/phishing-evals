@@ -1,0 +1,28 @@
+digraph ast {
+node [shape=none];
+12076688 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076688</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>pre_term_name</TD></TR></TABLE>>];
+12076689 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076689</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+12076689 -> 12076690 [weight=2];
+12076689 -> 12076692 [weight=2];
+12076690 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076690</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+12076690 -> 12076691 [weight=2];
+12076691 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076691</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>logo_image</TD></TR></TABLE>>];
+12076692 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076692</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+12076692 -> 12076693 [weight=2];
+12076693 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076693</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>wp_nonce</TD></TR></TABLE>>];
+12076694 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>12076694</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+12076680 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076680</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+12076680 -> 12076681 [weight=2];
+12076681 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076681</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+12076681 -> 12076679 [weight=2];
+12076681 -> 12076694 [style=dotted,label=DynamicResolution];
+12076681 -> 12076687 [style=dotted,label=DataflowResolution];
+12076682 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076682</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+12076682 -> 12076678 [weight=2];
+12076682 -> 12076680 [weight=2];
+12076687 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076687</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>pre_term_name</TD></TR></TABLE>>];
+12076687 -> 12076688 [weight=2];
+12076687 -> 12076689 [weight=2];
+12076678 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076678</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+12076679 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>12076679</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 9591)</TD><TD border='0' cellpadding='5'>wpautop</TD></TR></TABLE>>];
+}

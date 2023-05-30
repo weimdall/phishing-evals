@@ -1,0 +1,18 @@
+digraph ast {
+node [shape=none];
+24441812 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441812</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Content-Security-Policy</TD></TR></TABLE>>];
+24441828 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>24441828</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+24441813 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441813</TD><TD border='0'><B>ArrayExpression</B></TD></TR></TABLE>>];
+24441813 -> 24441811 [weight=2];
+24441813 -> 24441812 [weight=2];
+24441814 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441814</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+24441814 -> 24441815 [weight=2];
+24441815 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441815</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+24441815 -> 24441813 [weight=2];
+24441815 -> 24441828 [style=dotted,label=DynamicResolution];
+24441810 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441810</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+24441811 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441811</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 192630)</TD><TD border='0' cellpadding='5'>_HEADERS</TD></TR></TABLE>>];
+24441816 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>24441816</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+24441816 -> 24441810 [weight=2];
+24441816 -> 24441814 [weight=2];
+}

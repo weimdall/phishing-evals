@@ -1,0 +1,34 @@
+digraph ast {
+node [shape=none];
+31733060 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733060</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Foo</TD></TR></TABLE>>];
+31733061 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733061</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>;</TD></TR></TABLE>>];
+31733062 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733062</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>class</TD></TR></TABLE>>];
+31733063 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733063</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Bar</TD></TR></TABLE>>];
+31733056 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733056</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+31733057 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733057</TD><TD border='0'><B>HeredocFlow</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&lt;&lt;&lt;</TD></TR></TABLE>>];
+31733058 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733058</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PHP</TD></TR></TABLE>>];
+31733059 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733059</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>namespace</TD></TR></TABLE>>];
+31733068 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733068</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+31733068 -> 31733069 [weight=2];
+31733069 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733069</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+31733069 -> 31733067 [weight=2];
+31733069 -> 31733115 [style=dotted,label=DynamicResolution];
+31733070 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733070</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+31733070 -> 31733056 [weight=2];
+31733070 -> 31733068 [weight=2];
+31733064 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733064</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>{</TD></TR></TABLE>>];
+31733065 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733065</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>}</TD></TR></TABLE>>];
+31733066 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733066</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PHP</TD></TR></TABLE>>];
+31733067 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>31733067</TD><TD border='0'><B>PostfixExpression</B></TD></TR></TABLE>>];
+31733067 -> 31733057 [weight=2];
+31733067 -> 31733058 [weight=2];
+31733067 -> 31733059 [weight=2];
+31733067 -> 31733060 [weight=2];
+31733067 -> 31733061 [weight=2];
+31733067 -> 31733062 [weight=2];
+31733067 -> 31733063 [weight=2];
+31733067 -> 31733064 [weight=2];
+31733067 -> 31733065 [weight=2];
+31733067 -> 31733066 [weight=2];
+31733115 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>31733115</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+}

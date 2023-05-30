@@ -1,0 +1,34 @@
+digraph ast {
+node [shape=none];
+96199835 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199835</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+96199835 -> 96199833 [weight=2];
+96199835 -> 96199881 [style=dotted,label=DynamicResolution];
+96199834 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199834</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+96199834 -> 96199835 [weight=2];
+96199833 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199833</TD><TD border='0'><B>PostfixExpression</B></TD></TR></TABLE>>];
+96199833 -> 96199823 [weight=2];
+96199833 -> 96199824 [weight=2];
+96199833 -> 96199825 [weight=2];
+96199833 -> 96199826 [weight=2];
+96199833 -> 96199827 [weight=2];
+96199833 -> 96199828 [weight=2];
+96199833 -> 96199829 [weight=2];
+96199833 -> 96199830 [weight=2];
+96199833 -> 96199831 [weight=2];
+96199833 -> 96199832 [weight=2];
+96199832 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199832</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PHP</TD></TR></TABLE>>];
+96199836 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199836</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+96199836 -> 96199822 [weight=2];
+96199836 -> 96199834 [weight=2];
+96199827 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199827</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>;</TD></TR></TABLE>>];
+96199826 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199826</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Foo</TD></TR></TABLE>>];
+96199825 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199825</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>namespace</TD></TR></TABLE>>];
+96199824 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199824</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PHP</TD></TR></TABLE>>];
+96199831 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199831</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>}</TD></TR></TABLE>>];
+96199830 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199830</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>{</TD></TR></TABLE>>];
+96199829 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199829</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Bar</TD></TR></TABLE>>];
+96199828 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199828</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>class</TD></TR></TABLE>>];
+96199881 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>96199881</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+96199823 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199823</TD><TD border='0'><B>HeredocFlow</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&lt;&lt;&lt;</TD></TR></TABLE>>];
+96199822 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>96199822</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

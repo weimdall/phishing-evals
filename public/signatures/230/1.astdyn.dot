@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+939998371 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998371</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+939998371 -> 939998365 [weight=2];
+939998371 -> 939998369 [weight=2];
+939998370 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998370</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+939998370 -> 939998367 [weight=2];
+939998369 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998369</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+939998369 -> 939998370 [weight=2];
+939998368 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998368</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$allOK=1;</TD></TR></TABLE>>];
+939998528 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>939998528</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+939998519 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998519</TD><TD border='0'><B>MethodCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>wrapXmlrpcMethod</TD></TR></TABLE>>];
+939998519 -> 939998520 [weight=2];
+939998519 -> 939998521 [weight=2];
+939998518 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998518</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>methodWrap</TD></TR></TABLE>>];
+939998367 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998367</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+939998367 -> 939998366 [weight=2];
+939998367 -> 939998368 [weight=2];
+939998367 -> 939998528 [style=dotted,label=DynamicResolution];
+939998367 -> 939998518 [style=dotted,label=DataflowResolution];
+939998367 -> 939998519 [style=dotted,label=DataflowResolution];
+939998527 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998527</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>opts</TD></TR></TABLE>>];
+939998366 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998366</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 230807)</TD><TD border='0' cellpadding='5'>source</TD></TR></TABLE>>];
+939998526 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998526</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+939998526 -> 939998527 [weight=2];
+939998365 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998365</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+939998525 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998525</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>mName</TD></TR></TABLE>>];
+939998524 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998524</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+939998524 -> 939998525 [weight=2];
+939998523 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998523</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>client</TD></TR></TABLE>>];
+939998522 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998522</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+939998522 -> 939998523 [weight=2];
+939998521 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998521</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+939998521 -> 939998522 [weight=2];
+939998521 -> 939998524 [weight=2];
+939998521 -> 939998526 [weight=2];
+939998520 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>939998520</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>wrapXmlrpcMethod</TD></TR></TABLE>>];
+}

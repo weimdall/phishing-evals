@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+252568781 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568781</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PMXE_Plugin</TD></TR></TABLE>>];
+252568780 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568780</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+252568780 -> 252568779 [weight=2];
+252568780 -> 252568790 [weight=2];
+252568780 -> 252570687 [style=dotted,label=DynamicResolution];
+252568783 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568783</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>::</TD></TR></TABLE>>];
+252568783 -> 252568781 [weight=2];
+252568783 -> 252568782 [weight=2];
+252568782 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568782</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 292404)</TD><TD border='0' cellpadding='5'>session</TD></TR></TABLE>>];
+252568779 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568779</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>return new WP_User_Query(array(</TD></TR></TABLE>>];
+252568778 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568778</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+252570687 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>252570687</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+252568793 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568793</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+252568793 -> 252568780 [weight=2];
+252568792 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568792</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+252568792 -> 252568793 [weight=2];
+252568794 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568794</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+252568794 -> 252568778 [weight=2];
+252568794 -> 252568792 [weight=2];
+252568789 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568789</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>-&gt;</TD></TR></TABLE>>];
+252568789 -> 252568783 [weight=2];
+252568789 -> 252568788 [weight=2];
+252568788 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568788</TD><TD border='0'><B>MethodCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>get</TD></TR></TABLE>>];
+252568788 -> 252568784 [weight=2];
+252568788 -> 252568786 [weight=2];
+252568791 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568791</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>, 'offset' =&gt; 0, 'number' =&gt; 10 ));</TD></TR></TABLE>>];
+252568790 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568790</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+252568790 -> 252568789 [weight=2];
+252568790 -> 252568791 [weight=2];
+252568785 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568785</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>wp_query</TD></TR></TABLE>>];
+252568784 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568784</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>get</TD></TR></TABLE>>];
+252568787 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568787</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+252568787 -> 252568785 [weight=2];
+252568786 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>252568786</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+252568786 -> 252568787 [weight=2];
+}

@@ -1,0 +1,32 @@
+digraph ast {
+node [shape=none];
+241034045 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034045</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+241034045 -> 241034046 [weight=2];
+241034044 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034044</TD><TD border='0'><B>FunctionCall</B></TD></TR></TABLE>>];
+241034044 -> 241034040 [weight=2];
+241034044 -> 241034042 [weight=2];
+241034044 -> 241034050 [style=dotted,label=DataflowResolution];
+241034047 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034047</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+241034047 -> 241034037 [weight=2];
+241034047 -> 241034045 [weight=2];
+241034046 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034046</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+241034046 -> 241034039 [weight=2];
+241034046 -> 241034052 [style=dotted,label=DynamicResolution];
+241034041 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034041</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>P D9waHAgJF9DWEI9IlwxNDJcMTQxXDE2M1x...</TD></TR></TABLE>>];
+241034040 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034040</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 1586921)</TD><TD border='0' cellpadding='5'>_YAIXPF</TD></TR></TABLE>>];
+241034043 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034043</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+241034043 -> 241034041 [weight=2];
+241034042 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034042</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+241034042 -> 241034043 [weight=2];
+241034037 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034037</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+241034039 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034039</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+241034039 -> 241034038 [weight=2];
+241034039 -> 241034044 [weight=2];
+241034039 -> 241034051 [style=dotted,label=DynamicResolution];
+241034038 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034038</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+241034053 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034053</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+241034052 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034052</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;&lt;?php $_CXB='142141163x65x366...</TD></TR></TABLE>>];
+241034052 -> 241034053 [style=dotted,label=Parse];
+241034051 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034051</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3c3f70687020245f4358423d225c3134325c3...</TD></TR></TABLE>>];
+241034050 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241034050</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>142141163x65x3664137144145x...</TD></TR></TABLE>>];
+}

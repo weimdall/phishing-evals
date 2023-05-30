@@ -1,0 +1,30 @@
+digraph ast {
+node [shape=none];
+83791070 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791070</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+83791070 -> 83791068 [weight=2];
+83791070 -> 83791257 [style=dotted,label=DynamicResolution];
+83791071 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791071</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+83791071 -> 83791059 [weight=2];
+83791071 -> 83791069 [weight=2];
+83791068 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791068</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>cck_field_get_setting</TD></TR></TABLE>>];
+83791068 -> 83791060 [weight=2];
+83791068 -> 83791064 [weight=2];
+83791069 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791069</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+83791069 -> 83791070 [weight=2];
+83791066 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791066</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+83791066 -> 83791062 [weight=2];
+83791067 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791067</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+83791067 -> 83791063 [weight=2];
+83791064 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791064</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+83791064 -> 83791065 [weight=2];
+83791064 -> 83791066 [weight=2];
+83791064 -> 83791067 [weight=2];
+83791065 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791065</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+83791065 -> 83791061 [weight=2];
+83791257 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>83791257</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+83791062 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791062</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>field</TD></TR></TABLE>>];
+83791063 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791063</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 10021)</TD><TD border='0' cellpadding='5'>field</TD></TR></TABLE>>];
+83791060 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791060</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>cck_field_get_setting</TD></TR></TABLE>>];
+83791061 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791061</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>allowed_values_php</TD></TR></TABLE>>];
+83791059 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>83791059</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

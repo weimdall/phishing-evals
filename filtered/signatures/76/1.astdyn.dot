@@ -1,0 +1,16 @@
+digraph ast {
+node [shape=none];
+1330088933 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088933</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+1330088932 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088932</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt; $location &lt;?php </TD></TR></TABLE>>];
+1330088932 -> 1330088933 [style=dotted,label=Parse];
+1330088752 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088752</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[10, 11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1330088752 -> 1330088748 [weight=2];
+1330088752 -> 1330088750 [weight=2];
+1330088751 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088751</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1330088751 -> 1330088749 [weight=2];
+1330088751 -> 1330088932 [style=dotted,label=DataflowResolution];
+1330088750 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088750</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1330088750 -> 1330088751 [weight=2];
+1330088749 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088749</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 66766)</TD><TD border='0' cellpadding='5'>header</TD></TR></TABLE>>];
+1330088748 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1330088748</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

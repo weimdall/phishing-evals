@@ -1,0 +1,26 @@
+digraph ast {
+node [shape=none];
+786437536 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437536</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+786437536 -> 786437529 [weight=2];
+786438032 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>786438032</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+786437537 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437537</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+786437537 -> 786437527 [weight=2];
+786437537 -> 786437535 [weight=2];
+786437527 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437527</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+786437528 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437528</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>$_ruleValue = </TD></TR></TABLE>>];
+786437529 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437529</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+786437529 -> 786437528 [weight=2];
+786437529 -> 786437534 [weight=2];
+786437529 -> 786438032 [style=dotted,label=DynamicResolution];
+786437530 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437530</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(8644172, 6363977)</TD><TD border='0' cellpadding='5'>ruleValue</TD></TR></TABLE>>];
+786437531 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437531</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>__toString</TD></TR></TABLE>>];
+786437532 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437532</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+786437533 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437533</TD><TD border='0'><B>MethodCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>__toString</TD></TR></TABLE>>];
+786437533 -> 786437531 [weight=2];
+786437533 -> 786437532 [weight=2];
+786437534 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437534</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>-&gt;</TD></TR></TABLE>>];
+786437534 -> 786437530 [weight=2];
+786437534 -> 786437533 [weight=2];
+786437535 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>786437535</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+786437535 -> 786437536 [weight=2];
+}

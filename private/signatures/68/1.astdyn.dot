@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+23278979 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278979</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+23278979 -> 23278977 [weight=2];
+23278978 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278978</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+23278978 -> 23278979 [weight=2];
+23278977 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278977</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 186194)</TD><TD border='0' cellpadding='5'>UeXploiT</TD></TR></TABLE>>];
+23278976 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278976</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+23278983 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278983</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+23278983 -> 23278975 [weight=2];
+23278983 -> 23278981 [weight=2];
+23278982 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278982</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+23278982 -> 23278980 [weight=2];
+23278981 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278981</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+23278981 -> 23278982 [weight=2];
+23278980 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278980</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+23278980 -> 23278976 [weight=2];
+23278980 -> 23278978 [weight=2];
+23278987 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278987</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+23278987 -> 23278988 [weight=2];
+23278986 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278986</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>htmlspecialchars_decode</TD></TR></TABLE>>];
+23278986 -> 23278974 [weight=2];
+23278986 -> 23278984 [weight=2];
+23278985 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278985</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+23278985 -> 23278983 [weight=2];
+23278984 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278984</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+23278984 -> 23278985 [weight=2];
+23278989 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278989</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+23278989 -> 23278973 [weight=2];
+23278989 -> 23278987 [weight=2];
+23278988 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278988</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+23278988 -> 23278986 [weight=2];
+23278988 -> 23278992 [style=dotted,label=DynamicResolution];
+23278992 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>23278992</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+23278975 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278975</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+23278974 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278974</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>htmlspecialchars_decode</TD></TR></TABLE>>];
+23278973 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>23278973</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

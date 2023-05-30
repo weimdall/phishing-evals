@@ -1,0 +1,36 @@
+digraph ast {
+node [shape=none];
+139168587 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168587</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+139168587 -> 139168585 [weight=2];
+139168586 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168586</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+139168586 -> 139168587 [weight=2];
+139168585 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168585</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+139168585 -> 139168581 [weight=2];
+139168585 -> 139168583 [weight=2];
+139168584 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168584</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+139168584 -> 139168582 [weight=2];
+139168584 -> 139168593 [style=dotted,label=DataflowResolution];
+139168591 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168591</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+139168591 -> 139168577 [weight=2];
+139168591 -> 139168589 [weight=2];
+139168590 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168590</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+139168590 -> 139168579 [weight=2];
+139168590 -> 139168594 [style=dotted,label=DynamicResolution];
+139168589 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168589</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+139168589 -> 139168590 [weight=2];
+139168588 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168588</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzuncompress</TD></TR></TABLE>>];
+139168588 -> 139168580 [weight=2];
+139168588 -> 139168586 [weight=2];
+139168579 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168579</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+139168579 -> 139168578 [weight=2];
+139168579 -> 139168588 [weight=2];
+139168578 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168578</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+139168577 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168577</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+139168583 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168583</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+139168583 -> 139168584 [weight=2];
+139168582 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168582</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 1078446)</TD><TD border='0' cellpadding='5'>shell_code</TD></TR></TABLE>>];
+139168581 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168581</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+139168580 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>139168580</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzuncompress</TD></TR></TABLE>>];
+139168594 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>139168594</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+139168593 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>139168593</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>CannotReadDDFile</TD></TR></TABLE>>];
+}

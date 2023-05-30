@@ -1,0 +1,16 @@
+digraph ast {
+node [shape=none];
+52981434 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981434</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+52981435 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981435</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 186248)</TD><TD border='0' cellpadding='5'>eval</TD></TR></TABLE>>];
+52981436 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981436</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+52981436 -> 52981437 [weight=2];
+52981437 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981437</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+52981437 -> 52981435 [weight=2];
+52981437 -> 52981542 [style=dotted,label=DataflowResolution];
+52981438 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981438</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[10, 11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+52981438 -> 52981434 [weight=2];
+52981438 -> 52981436 [weight=2];
+52981542 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981542</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>unset($data);unset($template);unset...</TD></TR></TABLE>>];
+52981542 -> 52981543 [style=dotted,label=Parse];
+52981543 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>52981543</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+}

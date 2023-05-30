@@ -1,0 +1,28 @@
+digraph ast {
+node [shape=none];
+49629087 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49629087</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>cod$mobil</TD></TR></TABLE>>];
+49628325 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628325</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+49628325 -> 49628324 [weight=2];
+49628325 -> 49628330 [weight=2];
+49628325 -> 49629088 [style=dotted,label=DynamicResolution];
+49628324 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628324</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+49628327 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628327</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>'.$mozilla.'JG'.$windows.'D0'.$apple....</TD></TR></TABLE>>];
+49628326 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628326</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 19644)</TD><TD border='0' cellpadding='5'>desktop</TD></TR></TABLE>>];
+49629088 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>49629088</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+49628323 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628323</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+49628333 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628333</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+49628333 -> 49628323 [weight=2];
+49628333 -> 49628331 [weight=2];
+49628332 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628332</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+49628332 -> 49628325 [weight=2];
+49628329 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628329</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+49628329 -> 49628327 [weight=2];
+49628328 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628328</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+49628328 -> 49628329 [weight=2];
+49628331 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628331</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+49628331 -> 49628332 [weight=2];
+49628330 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>49628330</TD><TD border='0'><B>FunctionCall</B></TD></TR></TABLE>>];
+49628330 -> 49628326 [weight=2];
+49628330 -> 49628328 [weight=2];
+49628330 -> 49629087 [style=dotted,label=DataflowResolution];
+}

@@ -1,0 +1,34 @@
+digraph ast {
+node [shape=none];
+1170427361 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>1170427361</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+1170426351 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426351</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+1170426350 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426350</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1170426354 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426354</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>dump</TD></TR></TABLE>>];
+1170426353 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426353</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 90364)</TD><TD border='0' cellpadding='5'>dumper</TD></TR></TABLE>>];
+1170426352 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426352</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+1170426352 -> 1170426351 [weight=2];
+1170426352 -> 1170426362 [weight=2];
+1170426352 -> 1170427361 [style=dotted,label=DynamicResolution];
+1170426359 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426359</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1170426359 -> 1170426360 [weight=2];
+1170426358 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426358</TD><TD border='0'><B>ArrayInitialisation</B></TD></TR></TABLE>>];
+1170426358 -> 1170426356 [weight=2];
+1170426358 -> 1170426357 [weight=2];
+1170426357 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426357</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Symfony_DI_PhpDumper_Test_Aliases</TD></TR></TABLE>>];
+1170426356 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426356</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>class</TD></TR></TABLE>>];
+1170426363 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426363</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+1170426363 -> 1170426364 [weight=2];
+1170426362 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426362</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>-&gt;</TD></TR></TABLE>>];
+1170426362 -> 1170426353 [weight=2];
+1170426362 -> 1170426361 [weight=2];
+1170426361 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426361</TD><TD border='0'><B>MethodCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>dump</TD></TR></TABLE>>];
+1170426361 -> 1170426354 [weight=2];
+1170426361 -> 1170426359 [weight=2];
+1170426360 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426360</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1170426360 -> 1170426358 [weight=2];
+1170426365 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426365</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+1170426365 -> 1170426350 [weight=2];
+1170426365 -> 1170426363 [weight=2];
+1170426364 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>1170426364</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+1170426364 -> 1170426352 [weight=2];
+}

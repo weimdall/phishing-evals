@@ -1,0 +1,20 @@
+digraph ast {
+node [shape=none];
+91837305 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837305</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+91837305 -> 91837306 [weight=2];
+91837304 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837304</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 35710)</TD><TD border='0' cellpadding='5'>item</TD></TR></TABLE>>];
+91837307 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837307</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[11, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+91837307 -> 91837303 [weight=2];
+91837307 -> 91837305 [weight=2];
+91837306 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837306</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+91837306 -> 91837304 [weight=2];
+91837306 -> 91837500 [style=dotted,label=DataflowResolution];
+91837501 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837501</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+91837500 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837500</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+91837500 -> 91837501 [weight=2];
+91837500 -> 91837502 [weight=2];
+91837503 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837503</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+91837502 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837502</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+91837502 -> 91837503 [weight=2];
+91837303 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>91837303</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+}

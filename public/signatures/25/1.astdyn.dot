@@ -1,0 +1,18 @@
+digraph ast {
+node [shape=none];
+27597765 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597765</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+27597765 -> 27597766 [weight=2];
+27597764 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597764</TD><TD border='0'><B>ArrayExpression</B></TD></TR></TABLE>>];
+27597764 -> 27597762 [weight=2];
+27597764 -> 27597763 [weight=2];
+27597767 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597767</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+27597767 -> 27597761 [weight=2];
+27597767 -> 27597765 [weight=2];
+27597766 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597766</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+27597766 -> 27597764 [weight=2];
+27597766 -> 27597808 [style=dotted,label=DynamicResolution];
+27597761 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597761</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+27597808 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>27597808</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+27597763 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597763</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>php</TD></TR></TABLE>>];
+27597762 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>27597762</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(491201, 460892)</TD><TD border='0' cellpadding='5'>__conf</TD></TR></TABLE>>];
+}

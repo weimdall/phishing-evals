@@ -1,0 +1,28 @@
+digraph ast {
+node [shape=none];
+80340353 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340353</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>get_contents</TD></TR></TABLE>>];
+80340352 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340352</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>get_contents</TD></TR></TABLE>>];
+80340352 -> 80340353 [weight=2];
+80340352 -> 80340354 [weight=2];
+80340355 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340355</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+80340355 -> 80340356 [weight=2];
+80340354 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340354</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+80340354 -> 80340355 [weight=2];
+80340357 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>80340357</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+80340356 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340356</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>https:magma.vsi.esdm.go.idinsertda...</TD></TR></TABLE>>];
+80340345 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340345</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+80340344 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340344</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+80340347 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340347</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 28530)</TD><TD border='0' cellpadding='5'>a</TD></TR></TABLE>>];
+80340346 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340346</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+80340346 -> 80340345 [weight=2];
+80340346 -> 80340347 [weight=2];
+80340346 -> 80340357 [style=dotted,label=DynamicResolution];
+80340346 -> 80340352 [style=dotted,label=DataflowResolution];
+80340349 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340349</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+80340349 -> 80340346 [weight=2];
+80340348 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340348</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+80340348 -> 80340349 [weight=2];
+80340350 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>80340350</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+80340350 -> 80340344 [weight=2];
+80340350 -> 80340348 [weight=2];
+}

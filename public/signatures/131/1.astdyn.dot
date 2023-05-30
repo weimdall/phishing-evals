@@ -1,0 +1,22 @@
+digraph ast {
+node [shape=none];
+241636439 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636439</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+241636439 -> 241636433 [weight=2];
+241636439 -> 241636437 [weight=2];
+241636455 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636455</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>    return null;n    return $value;...</TD></TR></TABLE>>];
+241636455 -> 241636456 [style=dotted,label=Parse];
+241636438 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636438</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+241636438 -> 241636435 [weight=2];
+241636438 -> 241636455 [style=dotted,label=DynamicResolution];
+241636454 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636454</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>    return null;n</TD></TR></TABLE>>];
+241636437 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636437</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+241636437 -> 241636438 [weight=2];
+241636436 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636436</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>    return $value;n}n</TD></TR></TABLE>>];
+241636435 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636435</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+241636435 -> 241636434 [weight=2];
+241636435 -> 241636436 [weight=2];
+241636435 -> 241636454 [style=dotted,label=DataflowResolution];
+241636434 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636434</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 7750)</TD><TD border='0' cellpadding='5'>code</TD></TR></TABLE>>];
+241636433 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636433</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+241636456 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>241636456</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+}

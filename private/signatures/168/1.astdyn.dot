@@ -1,0 +1,32 @@
+digraph ast {
+node [shape=none];
+147145249 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145249</TD><TD border='0'><B>HexLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>3c3f0d0a0d0a246970203d20676574656e762...</TD></TR></TABLE>>];
+147145248 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145248</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>PD8NCg0KJGlwID0gZ2V0ZW52KCJSRU1PVEVfQ...</TD></TR></TABLE>>];
+147145251 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145251</TD><TD border='0'><B>Payload</B></TD></TR></TABLE>>];
+147145250 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145250</TD><TD border='0'><B>StringLiteral</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;&lt;?  $ip = getenv('REMOTE_ADDR');...</TD></TR></TABLE>>];
+147145250 -> 147145251 [style=dotted,label=Parse];
+147145237 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145237</TD><TD border='0'><B>StringExpression</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>?&gt;</TD></TR></TABLE>>];
+147145236 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145236</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+147145239 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145239</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+147145238 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145238</TD><TD border='0'><B>BinOP</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>.</TD></TR></TABLE>>];
+147145238 -> 147145237 [weight=2];
+147145238 -> 147145243 [weight=2];
+147145238 -> 147145249 [style=dotted,label=DynamicResolution];
+147145245 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145245</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+147145245 -> 147145238 [weight=2];
+147145245 -> 147145250 [style=dotted,label=DynamicResolution];
+147145244 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145244</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+147145244 -> 147145245 [weight=2];
+147145246 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145246</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[4, 10, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+147145246 -> 147145236 [weight=2];
+147145246 -> 147145244 [weight=2];
+147145241 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145241</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+147145241 -> 147145242 [weight=2];
+147145240 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145240</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 1135070)</TD><TD border='0' cellpadding='5'>faisal</TD></TR></TABLE>>];
+147145243 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145243</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+147145243 -> 147145239 [weight=2];
+147145243 -> 147145241 [weight=2];
+147145242 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>147145242</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+147145242 -> 147145240 [weight=2];
+147145242 -> 147145248 [style=dotted,label=DataflowResolution];
+}

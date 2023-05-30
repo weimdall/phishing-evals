@@ -1,0 +1,32 @@
+digraph ast {
+node [shape=none];
+268103065 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>268103065</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>NoLiteral</TD></TR></TABLE>>];
+268102160 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102160</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+268102160 -> 268102158 [weight=2];
+268102160 -> 268103065 [style=dotted,label=DynamicResolution];
+268102161 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102161</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+268102161 -> 268102148 [weight=2];
+268102161 -> 268102159 [weight=2];
+268102154 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102154</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Twig_Extension</TD></TR></TABLE>>];
+268102155 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102155</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>{</TD></TR></TABLE>>];
+268102152 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102152</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>Twig_Tests_EnvironmentTest_ExtensionI...</TD></TR></TABLE>>];
+268102153 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102153</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>extends</TD></TR></TABLE>>];
+268102158 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102158</TD><TD border='0'><B>PostfixExpression</B></TD></TR></TABLE>>];
+268102158 -> 268102149 [weight=2];
+268102158 -> 268102150 [weight=2];
+268102158 -> 268102151 [weight=2];
+268102158 -> 268102152 [weight=2];
+268102158 -> 268102153 [weight=2];
+268102158 -> 268102154 [weight=2];
+268102158 -> 268102155 [weight=2];
+268102158 -> 268102156 [weight=2];
+268102158 -> 268102157 [weight=2];
+268102159 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102159</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+268102159 -> 268102160 [weight=2];
+268102156 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102156</TD><TD border='0'><B>LegalChar</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>}</TD></TR></TABLE>>];
+268102157 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102157</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>EOF</TD></TR></TABLE>>];
+268102150 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102150</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>EOF</TD></TR></TABLE>>];
+268102151 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102151</TD><TD border='0'><B>EId</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>class</TD></TR></TABLE>>];
+268102148 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102148</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+268102149 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>268102149</TD><TD border='0'><B>HeredocFlow</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>&lt;&lt;&lt;</TD></TR></TABLE>>];
+}

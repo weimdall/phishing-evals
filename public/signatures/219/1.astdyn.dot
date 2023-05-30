@@ -1,0 +1,30 @@
+digraph ast {
+node [shape=none];
+834339355 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339355</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+834339355 -> 834339353 [weight=2];
+834339355 -> 834339758 [style=dotted,label=DynamicResolution];
+834339354 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339354</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+834339354 -> 834339355 [weight=2];
+834339353 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339353</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+834339353 -> 834339345 [weight=2];
+834339353 -> 834339351 [weight=2];
+834339352 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339352</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+834339352 -> 834339350 [weight=2];
+834339356 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339356</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[8, 27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+834339356 -> 834339344 [weight=2];
+834339356 -> 834339354 [weight=2];
+834339347 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339347</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 21208)</TD><TD border='0' cellpadding='5'>block</TD></TR></TABLE>>];
+834339346 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339346</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+834339345 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339345</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>file_get_contents</TD></TR></TABLE>>];
+834339344 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339344</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+834339351 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339351</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+834339351 -> 834339352 [weight=2];
+834339350 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339350</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+834339350 -> 834339346 [weight=2];
+834339350 -> 834339348 [weight=2];
+834339349 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339349</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+834339349 -> 834339347 [weight=2];
+834339348 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>834339348</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+834339348 -> 834339349 [weight=2];
+834339758 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>834339758</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+}

@@ -1,0 +1,38 @@
+digraph ast {
+node [shape=none];
+876 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>876</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+877 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>877</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>htmlspecialchars_decode</TD></TR></TABLE>>];
+878 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>878</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+879 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>879</TD><TD border='0'><B>Id</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+880 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>880</TD><TD border='0'><B>Variable</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>(0, 19)</TD><TD border='0' cellpadding='5'>UeXploiT</TD></TR></TABLE>>];
+881 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>881</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+881 -> 882 [weight=2];
+882 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>882</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+882 -> 880 [weight=2];
+883 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>883</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>base64_decode</TD></TR></TABLE>>];
+883 -> 879 [weight=2];
+883 -> 881 [weight=2];
+884 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>884</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+884 -> 885 [weight=2];
+885 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>885</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+885 -> 883 [weight=2];
+886 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>886</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>gzinflate</TD></TR></TABLE>>];
+886 -> 878 [weight=2];
+886 -> 884 [weight=2];
+887 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>887</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+887 -> 888 [weight=2];
+888 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>888</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+888 -> 886 [weight=2];
+889 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>889</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>htmlspecialchars_decode</TD></TR></TABLE>>];
+889 -> 877 [weight=2];
+889 -> 887 [weight=2];
+890 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>890</TD><TD border='0'><B>ArgumentList</B></TD></TR></TABLE>>];
+890 -> 891 [weight=2];
+891 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>891</TD><TD border='0'><B>Argument</B></TD></TR></TABLE>>];
+891 -> 889 [weight=2];
+891 -> 895 [style=dotted,label=DynamicResolution];
+892 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' ><TR><TD border='0'>892</TD><TD border='0'><B>FunctionCall</B></TD></TR><HR/><TR><TD border='0' cellpadding='5'>Patterns</TD><TD border='0' cellpadding='5'>[27]</TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>eval</TD></TR></TABLE>>];
+892 -> 876 [weight=2];
+892 -> 890 [weight=2];
+895 [label=<<TABLE border='1' cellspacing='0' cellpadding='10' style='rounded' bgcolor='#FFCCCC' ><TR><TD border='0'>895</TD><TD border='0'><B>DecodeFailed</B></TD></TR><HR/><TR><TD border='0' cellpadding='5' colspan='2'>FuncIdUnknown</TD></TR></TABLE>>];
+}
